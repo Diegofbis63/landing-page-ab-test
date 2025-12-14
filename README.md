@@ -1,246 +1,232 @@
-# 🚀 Landing Page A/B Test Demo - MarketingPro
+# Landing Page A/B Test Demo
 
-[![GitHub stars](https://img.shields.io/github/stars/Diegofbis63/landing-page-ab-test-demo?style=social)](https://github.com/Diegofbis63/landing-page-ab-test-demo)
-[![GitHub forks](https://img.shields.io/github/forks/Diegofbis63/landing-page-ab-test-demo?style=social)](https://github.com/Diegofbis63/landing-page-ab-test-demo)
-[![GitHub license](https://img.shields.io/github/license/Diegofbis63/landing-page-ab-test-demo)](https://github.com/Diegofbis63/landing-page-ab-test-demo/blob/main/LICENSE)
-[![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black)](https://vercel.com)
+A professional marketing landing page built with Next.js 16, featuring A/B testing capabilities and lead capture functionality.
 
-> **Landing page profesional de alto impacto con A/B testing integrado, optimizada para conversiones y lista para producción.**
+![GitHub stars](https://img.shields.io/github/stars/Diegofbis63/landing-page-ab-test-demo?style=social)
+![GitHub forks](https://img.shields.io/github/forks/Diegofbis63/landing-page-ab-test-demo?style=social)
+![GitHub license](https://img.shields.io/github/license/Diegofbis63/landing-page-ab-test-demo)
+![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black)
 
-## 🎯 **Demo en Vivo**
+## Live Demo
 
-👉 **[Ver Demo](https://landing-page-ab-test-demo.vercel.app)** *(Reemplaza con tu URL de Vercel)*
+👉 **[View Live Demo](https://landing-page-ab-test-demo.vercel.app)**
 
-## ✨ **Características Principales**
+## Features
 
-### 🎨 **Diseño Profesional**
-- ✅ **Landing Page Completa** con todas las secciones estándar
-- ✅ **Hero Section** con gradientes y estadísticas animadas
-- ✅ **Beneficios Interactivos** con cards expandibles y progress bars
-- ✅ **Testimonios Sociales** con ratings y resultados reales
-- ✅ **FAQ Interactivo** con acordeón animado
-- ✅ **Footer Completo** con información de contacto
+### Design & UX
+- Fully responsive landing page with mobile-first approach
+- Modern hero section with animated statistics
+- Interactive benefits cards with expandable details
+- Customer testimonials with ratings
+- FAQ section with smooth accordion animations
+- Professional footer with contact information
 
-### 🧪 **A/B Testing Avanzado**
-- ✅ **Test Automático** 50/50 para botones CTA
-- ✅ **Variant A**: "Prueba Gratis" (estilo default)
-- ✅ **Variant B**: "Comienza Ahora" (estilo destructive)
-- ✅ **Tracking Completo** con Vercel Analytics
-- ✅ **Métricas en Tiempo Real** de rendimiento
+### A/B Testing
+- Automatic 50/50 split testing for CTA buttons
+- Variant A: "Prueba Gratis" (default style)
+- Variant B: "Comienza Ahora" (destructive style)
+- Real-time performance tracking with Vercel Analytics
+- Conversion rate optimization insights
 
-### 💾 **Captura de Leads**
-- ✅ **Formulario Funcional** con validación en tiempo real
-- ✅ **Integración Supabase** para base de datos
-- ✅ **Toast Notifications** para feedback
-- ✅ **Estados de Carga** y manejo de errores
+### Lead Generation
+- Functional contact form with real-time validation
+- Supabase integration for data storage
+- Toast notifications for user feedback
+- Loading states and error handling
 
-### 📈 **SEO y Rendimiento**
-- ✅ **100% SEO Optimizado** con metaetiquetas Open Graph
-- ✅ **JSON-LD Schema** para motores de búsqueda
-- ✅ **Lighthouse Score** > 90
-- ✅ **Core Web Vitals** optimizado
-- ✅ **Responsive Design** mobile-first
+### Performance & SEO
+- 100% SEO optimized with meta tags and Open Graph
+- JSON-LD structured data for search engines
+- Lighthouse performance score > 90
+- Core Web Vitals optimization
+- Fast loading times with optimized images
 
-## 🛠️ **Stack Tecnológico**
+## Tech Stack
 
-| Tecnología | Versión | Uso |
-|------------|---------|-----|
-| **Next.js** | 16 | Framework principal con App Router |
-| **TypeScript** | 5+ | Tipado seguro y desarrollo robusto |
-| **Tailwind CSS** | 4+ | Estilos modernos y responsive |
-| **shadcn/ui** | Latest | Componentes UI profesionales |
-| **Supabase** | Latest | Base de datos y backend-as-a-service |
-| **Vercel Analytics** | Latest | A/B testing y métricas |
-| **Lucide React** | Latest | Iconos modernos |
+| Technology | Version | Purpose |
+|-------------|----------|----------|
+| Next.js | 16 | React framework with App Router |
+| TypeScript | 5+ | Type-safe development |
+| Tailwind CSS | 4+ | Utility-first styling |
+| shadcn/ui | Latest | Professional UI components |
+| Supabase | Latest | Database and backend services |
+| Vercel Analytics | Latest | A/B testing and analytics |
+| Lucide React | Latest | Modern icon library |
 
-## 🚀 **Quick Start**
+## Getting Started
 
-### 1. **Clonar el Repositorio**
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/Diegofbis63/landing-page-ab-test-demo.git
 cd landing-page-ab-test-demo
 ```
 
-### 2. **Instalar Dependencias**
+### 2. Install Dependencies
 
 ```bash
 npm install
 ```
 
-### 3. **Configurar Supabase**
+### 3. Set Up Supabase
 
-1. **Crear cuenta en [Supabase](https://supabase.com)**
-2. **Crear nuevo proyecto**
-3. **Ejecutar el schema SQL**:
-   ```sql
-   -- Copia y pega el contenido de supabase-schema.sql
-   ```
-4. **Obtener credenciales** en Settings > API
+1. Create a new project at [Supabase](https://supabase.com)
+2. Run the SQL schema from `supabase-schema.sql`
+3. Get your credentials from Settings > API
 
-### 4. **Configurar Variables de Entorno**
+### 4. Configure Environment Variables
 
 ```bash
 cp .env.local.example .env.local
 ```
 
-Edita `.env.local`:
+Edit `.env.local` with your credentials:
 ```env
-NEXT_PUBLIC_SUPABASE_URL=tu_project_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=tu_anon_key
-NEXT_PUBLIC_APP_URL=https://tu-dominio.vercel.app
+NEXT_PUBLIC_SUPABASE_URL=your_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
+NEXT_PUBLIC_APP_URL=https://your-domain.vercel.app
 ```
 
-### 5. **Ejecutar Localmente**
+### 5. Run Locally
 
 ```bash
 npm run dev
 ```
 
-Visita `http://localhost:3000`
+Visit `http://localhost:3000`
 
-## 🌐 **Despliegue en Vercel**
+## Deployment
 
-### ⚠️ **IMPORTANTE: Configurar Variables de Entorno PRIMERO**
+### ⚠️ Important: Configure Environment Variables First
 
-Antes de desplegar, **DEBES configurar las variables de entorno** en Vercel:
+Before deploying, you must set up environment variables in Vercel:
 
-#### 1. **Configurar Supabase**
-1. Ve a [Supabase](https://supabase.com) → Crea proyecto
-2. Ve a Settings → API → Copia:
+#### 1. Set Up Supabase
+1. Go to [Supabase](https://supabase.com) → Create project
+2. Go to Settings → API → Copy:
    - `Project URL`
    - `anon public key`
 
-#### 2. **Configurar Variables en Vercel**
-1. Ve a tu proyecto en Vercel
+#### 2. Configure Vercel Variables
+1. Go to your Vercel project
 2. Settings → Environment Variables
-3. Añade estas variables:
+3. Add these variables:
 
 ```bash
-NEXT_PUBLIC_SUPABASE_URL=https://tu-proyecto.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=tu-anon-key
-NEXT_PUBLIC_APP_URL=https://tu-dominio.vercel.app
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+NEXT_PUBLIC_APP_URL=https://your-domain.vercel.app
 ```
 
-### 1. **Conectar a Vercel**
+### 1. Deploy to Vercel
 
-1. Ve a [vercel.com](https://vercel.com)
-2. Conecta tu cuenta de GitHub
-3. Importa el repositorio `landing-page-ab-test-demo`
+1. Go to [vercel.com](https://vercel.com)
+2. Connect your GitHub account
+3. Import the `landing-page-ab-test-demo` repository
 
-### 2. **Habilitar Analytics**
+### 2. Enable Analytics
 
-1. Ve a la pestaña "Analytics"
-2. Habilita Vercel Analytics (gratis)
-3. Configura el tracking personalizado
+1. Go to the "Analytics" tab
+2. Enable Vercel Analytics (free)
+3. Set up custom event tracking
 
-### 3. **Deploy!** 🎉
+### 3. Deploy!
 
-> **Nota**: Si obtienes un error de "supabaseUrl is required", asegúrate de haber configurado las variables de entorno ANTES del despliegue.
+> Note: If you get a "supabaseUrl is required" error, make sure you've configured the environment variables before deployment.
 
-## 📊 **A/B Testing - Métricas**
+## A/B Testing Metrics
 
-### Eventos Rastreados
+### Tracked Events
 
-| Evento | Descripción | Parámetros |
+| Event | Description | Parameters |
 |--------|-------------|------------|
-| `hero_variant_shown` | Visualización de variante | `{ variant: 'A' \| 'B' }` |
-| `cta_click` | Click en botón CTA | `{ variant, buttonText }` |
-| `lead_form_submit_success` | Formulario enviado | `{ email }` |
-| `lead_form_submit_error` | Error en formulario | `{ error }` |
+| `hero_variant_shown` | Variant impression | `{ variant: 'A' \| 'B' }` |
+| `cta_click` | CTA button click | `{ variant, buttonText }` |
+| `lead_form_submit_success` | Form submission | `{ email }` |
+| `lead_form_submit_error` | Form error | `{ error }` |
 
-### Ver Resultados
+### View Results
 
-1. Dashboard de Vercel > Analytics
-2. Filtrar por "Custom Events"
-3. Comparar rendimiento entre variantes
-4. Analizar tasas de conversión
+1. Go to Vercel Dashboard > Analytics
+2. Filter by "Custom Events"
+3. Compare performance between variants
+4. Analyze conversion rates
 
-## 🎯 **Componentes Principales**
-
-### 📁 **Estructura del Proyecto**
+## Project Structure
 
 ```
 src/
 ├── app/
-│   ├── layout.tsx          # Layout con SEO optimizado
-│   └── page.tsx            # Página principal
+│   ├── layout.tsx          # SEO-optimized layout
+│   └── page.tsx            # Main landing page
 ├── components/
-│   ├── Hero.tsx            # Hero con A/B testing
-│   ├── Benefits.tsx        # Benefits interactivos
-│   ├── Testimonials.tsx    # Testimonios sociales
-│   ├── LeadForm.tsx        # Formulario con Supabase
-│   ├── FAQ.tsx             # FAQ con acordeón
-│   └── Footer.tsx          # Footer completo
+│   ├── Hero.tsx            # Hero with A/B testing
+│   ├── Benefits.tsx        # Interactive benefits
+│   ├── Testimonials.tsx    # Customer testimonials
+│   ├── LeadForm.tsx        # Contact form with Supabase
+│   ├── FAQ.tsx             # FAQ accordion
+│   └── Footer.tsx          # Footer section
 ├── lib/
-│   └── supabase.ts         # Cliente Supabase
-└── ui/                     # Componentes shadcn/ui
+│   └── supabase.ts         # Supabase client
+└── ui/                     # shadcn/ui components
 ```
 
-### 🔧 **Personalización**
+## Customization
 
-#### Cambiar Textos y Contenido
+### Change Content
 
-Edita los archivos en `src/components/`:
-- `Hero.tsx`: Títulos, CTA, estadísticas
-- `Benefits.tsx`: Beneficios y características
-- `Testimonials.tsx`: Testimonios y resultados
-- `FAQ.tsx`: Preguntas frecuentes
+Edit files in `src/components/`:
+- `Hero.tsx`: Headlines, CTAs, statistics
+- `Benefits.tsx`: Benefits and features
+- `Testimonials.tsx`: Customer reviews
+- `FAQ.tsx`: Frequently asked questions
 
-#### Personalizar A/B Testing
+### Customize A/B Testing
 
 ```typescript
-// En Hero.tsx
+// In Hero.tsx
 const variants = {
-  A: { text: 'Tu Texto A', style: 'default' },
-  B: { text: 'Tu Texto B', style: 'secondary' }
+  A: { text: 'Your Text A', style: 'default' },
+  B: { text: 'Your Text B', style: 'secondary' }
 }
 ```
 
-#### Cambiar Colores y Estilos
+### Change Colors and Styles
 
-Edita `tailwind.config.js` o las clases CSS en los componentes.
+Edit `tailwind.config.js` or use CSS classes in components.
 
-## 📈 **Rendimiento y Optimización**
+## Performance
 
-### Lighthouse Scores (Objetivos)
-- ✅ **Performance**: > 95
-- ✅ **Accessibility**: 100
-- ✅ **Best Practices**: 100
-- ✅ **SEO**: 100
+### Lighthouse Scores (Target)
+- Performance: > 95
+- Accessibility: 100
+- Best Practices: 100
+- SEO: 100
 
-### Optimizaciones Implementadas
-- ✅ **Next.js Image** para todas las imágenes
-- ✅ **Critical CSS** inline
-- ✅ **Lazy loading** para componentes
-- ✅ **Minimal JavaScript** bundle
-- ✅ **Font optimization**
+### Optimizations
+- Next.js Image optimization for all images
+- Critical CSS inlining
+- Lazy loading for components
+- Minimal JavaScript bundle
+- Font optimization
 
-## 🤝 **Contribuir**
+## Contributing
 
-1. Fork el repositorio
-2. Crear feature branch: `git checkout -b feature/amazing-feature`
-3. Commit cambios: `git commit -m 'Add amazing feature'`
-4. Push al branch: `git push origin feature/amazing-feature`
-5. Abrir Pull Request
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Commit your changes: `git commit -m 'Add amazing feature'`
+4. Push to the branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
 
-## 📄 **Licencia**
+## License
 
-Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para detalles.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 👨‍💻 **Sobre el Desarrollador**
+## Contact
 
-> **Proyecto demo para portafolio freelance** - Desarrollado con ❤️ para demostrar capacidades en:
-> - Desarrollo web moderno con Next.js 16
-> - Diseño UX/UI profesional y responsive
-> - Integración de APIs y servicios cloud
-> - A/B testing y analítica web
-> - Optimización SEO y rendimiento
-
-### 📧 **Contacto**
-- **GitHub**: [@Diegofbis63](https://github.com/Diegofbis63)
-- **Email**: diegofbis63@users.noreply.github.com
+- GitHub: [@Diegofbis63](https://github.com/Diegofbis63)
+- Email: diegofbis63@users.noreply.github.com
 
 ---
 
-⭐ **Si este proyecto te ayuda, dale una estrella!** ⭐
+If this project helps you, give it a ⭐

@@ -30,6 +30,13 @@ export function LeadForm() {
     e.preventDefault()
     setIsSubmitting(true)
 
+    // Check if Supabase is configured
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+      toast.error('El formulario no está configurado. Por favor, contacta al administrador.')
+      setIsSubmitting(false)
+      return
+    }
+
     try {
       // Track form submission attempt
       track('lead_form_submit_attempt', {

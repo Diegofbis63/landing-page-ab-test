@@ -101,26 +101,42 @@ Visita `http://localhost:3000`
 
 ## 🌐 **Despliegue en Vercel**
 
+### ⚠️ **IMPORTANTE: Configurar Variables de Entorno PRIMERO**
+
+Antes de desplegar, **DEBES configurar las variables de entorno** en Vercel:
+
+#### 1. **Configurar Supabase**
+1. Ve a [Supabase](https://supabase.com) → Crea proyecto
+2. Ve a Settings → API → Copia:
+   - `Project URL`
+   - `anon public key`
+
+#### 2. **Configurar Variables en Vercel**
+1. Ve a tu proyecto en Vercel
+2. Settings → Environment Variables
+3. Añade estas variables:
+
+```bash
+NEXT_PUBLIC_SUPABASE_URL=https://tu-proyecto.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=tu-anon-key
+NEXT_PUBLIC_APP_URL=https://tu-dominio.vercel.app
+```
+
 ### 1. **Conectar a Vercel**
 
 1. Ve a [vercel.com](https://vercel.com)
 2. Conecta tu cuenta de GitHub
 3. Importa el repositorio `landing-page-ab-test-demo`
 
-### 2. **Configurar Variables de Entorno**
-
-En Vercel dashboard > Settings > Environment Variables:
-- `NEXT_PUBLIC_SUPABASE_URL`
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-- `NEXT_PUBLIC_APP_URL`
-
-### 3. **Habilitar Analytics**
+### 2. **Habilitar Analytics**
 
 1. Ve a la pestaña "Analytics"
 2. Habilita Vercel Analytics (gratis)
 3. Configura el tracking personalizado
 
-### 4. **Deploy!** 🎉
+### 3. **Deploy!** 🎉
+
+> **Nota**: Si obtienes un error de "supabaseUrl is required", asegúrate de haber configurado las variables de entorno ANTES del despliegue.
 
 ## 📊 **A/B Testing - Métricas**
 

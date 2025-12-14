@@ -225,7 +225,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Contact
 
 - GitHub: [@Diegofbis63](https://github.com/Diegofbis63)
-- Email: diegofbis63@users.noreply.github.com
+- Email: diegofbisquerra@gmail.com
 
 ---
 

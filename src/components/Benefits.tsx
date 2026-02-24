@@ -1,229 +1,221 @@
 'use client'
 
 import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
-import { Rocket, Target, BarChart3, Users, Globe, Zap, CheckCircle, TrendingUp, Clock, Shield, ArrowRight } from 'lucide-react'
+import { Rocket, Target, BarChart3, Users, Globe, Zap, CheckCircle, TrendingUp, Sparkles, ArrowRight } from 'lucide-react'
 
 const benefits = [
   {
     icon: Rocket,
     title: 'Lanzamiento Rápido',
     description: 'Configura tu campaña en menos de 48 horas y empieza a ver resultados desde la primera semana.',
-    badge: 'Popular',
+    badge: 'Elite Performance',
     features: [
       'Setup guiado paso a paso',
-      'Plantillas pre-diseñadas',
-      'Integración automática',
-      'Asistente personal IA'
+      'Plantillas Premium 2026',
+      'Integración One-Click',
+      'Asistente GPT-4o Integrado'
     ],
-    stats: { value: '48h', label: 'Tiempo promedio de setup' },
+    stats: { value: '48h', label: 'Setup Time' },
     progress: 95,
-    color: 'from-blue-500 to-cyan-500'
   },
   {
     icon: Target,
     title: 'Segmentación Precisa',
     description: 'Alcanza a tu público ideal con nuestra tecnología de IA que analiza patrones de comportamiento.',
-    badge: null,
+    badge: 'Neural Engine',
     features: [
       'Análisis demográfico avanzado',
-      'Segmentación por comportamiento',
-      'Lookalike audiences',
-      'Retargeting inteligente'
+      'Behavioral Tracking',
+      'Lookalike Audiences Pro',
+      'Smart Retargeting'
     ],
-    stats: { value: '92%', label: 'Precisión de segmentación' },
+    stats: { value: '92%', label: 'Precision' },
     progress: 92,
-    color: 'from-purple-500 to-pink-500'
   },
   {
     icon: BarChart3,
     title: 'Análisis en Tiempo Real',
     description: 'Monitorea tus campañas con dashboards interactivos y recibe alertas de optimización automática.',
-    badge: null,
+    badge: 'Live Insight',
     features: [
-      'Dashboard en vivo',
-      'Alertas automáticas',
-      'Predicciones de rendimiento',
-      'Reportes personalizados'
+      'Dashboard 4K Interactivo',
+      'Alertas Predictivas',
+      'Performance Forecast',
+      'Reportes de Grado Ejecutivo'
     ],
-    stats: { value: '24/7', label: 'Monitoreo continuo' },
+    stats: { value: '24/7', label: 'Monitor' },
     progress: 88,
-    color: 'from-green-500 to-emerald-500'
   },
-  {
-    icon: Users,
-    title: 'Soporte Experto 24/7',
-    description: 'Equipo de especialistas disponibles para ayudarte a maximizar tu ROI en cualquier momento.',
-    badge: null,
-    features: [
-      'Chat en vivo instantáneo',
-      'Llamadas programadas',
-      'Base de conocimientos',
-      'Comunidad exclusiva'
-    ],
-    stats: { value: '<2min', label: 'Tiempo de respuesta' },
-    progress: 98,
-    color: 'from-orange-500 to-red-500'
-  },
-  {
-    icon: Globe,
-    title: 'Expansión Global',
-    description: 'Llega a mercados internacionales con campañas adaptadas culturalmente a cada región.',
-    badge: 'Nuevo',
-    features: [
-      'Multi-idioma automático',
-      'Adaptación cultural',
-      'Pagos locales',
-      'Cumplimiento internacional'
-    ],
-    stats: { value: '50+', label: 'Países disponibles' },
-    progress: 75,
-    color: 'from-indigo-500 to-blue-500'
-  },
-  {
-    icon: Zap,
-    title: 'Automatización Inteligente',
-    description: 'Deja que nuestra IA optimice tus presupuestos automáticamente para maximizar resultados.',
-    badge: null,
-    features: [
-      'Optimización de presupuesto',
-      'A/B testing automático',
-      'Segmentación dinámica',
-      'Predicción de tendencias'
-    ],
-    stats: { value: '300%', label: 'ROI promedio' },
-    progress: 94,
-    color: 'from-yellow-500 to-orange-500'
-  }
 ]
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+}
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1
+  }
+}
 
 export function Benefits() {
   const [expandedCard, setExpandedCard] = useState<number | null>(null)
 
-  const toggleCard = (index: number) => {
-    setExpandedCard(expandedCard === index ? null : index)
-  }
-
   return (
-    <section className="py-20 bg-background">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            Beneficios que Transforman tu Negocio
+    <section className="py-32 relative overflow-hidden bg-background">
+      {/* Background decoration */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-primary/5 blur-[120px] rounded-full pointer-events-none" />
+
+      <div className="container relative z-10 mx-auto px-4">
+        <div className="text-center mb-24 space-y-4">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20"
+          >
+            <Sparkles className="h-3 w-3 text-primary" />
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Ventaja Competitiva</span>
+          </motion.div>
+
+          <h2 className="text-4xl sm:text-6xl font-black tracking-tighter text-white">
+            Beneficios de <span className="text-gradient">Grado Élite.</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            No solo aumentamos tu visibilidad, creamos una máquina de crecimiento 
-            que trabaja para ti 24/7.
+          <p className="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
+            No solo aumentamos tu visibilidad; construimos un ecosistema de escalabilidad
+            diseñado para dominar tu mercado.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="grid md:grid-cols-3 gap-8"
+        >
           {benefits.map((benefit, index) => {
             const Icon = benefit.icon
             const isExpanded = expandedCard === index
-            
+
             return (
-              <Card 
-                key={index} 
-                className={`relative overflow-hidden transition-all duration-500 cursor-pointer ${
-                  isExpanded 
-                    ? 'shadow-2xl scale-105 border-primary' 
-                    : 'hover:shadow-lg hover:scale-102'
-                }`}
-                onClick={() => toggleCard(index)}
-              >
-                <div className={`absolute inset-0 bg-gradient-to-br ${benefit.color} opacity-0 ${isExpanded ? 'opacity-5' : ''} transition-opacity duration-300`}></div>
-                
-                <CardHeader className="relative">
-                  <div className="flex items-center justify-between">
-                    <div className={`p-3 bg-gradient-to-br ${benefit.color} rounded-lg text-white`}>
-                      <Icon className="h-6 w-6" />
-                    </div>
-                    {benefit.badge && (
-                      <Badge variant="secondary" className="text-xs">
-                        {benefit.badge}
-                      </Badge>
-                    )}
-                  </div>
-                  <CardTitle className="text-xl">{benefit.title}</CardTitle>
-                  <CardDescription className="text-base leading-relaxed">
-                    {benefit.description}
-                  </CardDescription>
-                </CardHeader>
-
-                <CardContent className="relative">
-                  {/* Stats principales */}
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="text-center">
-                      <div className={`text-2xl font-bold bg-gradient-to-r ${benefit.color} bg-clip-text text-transparent`}>
-                        {benefit.stats.value}
+              <motion.div key={index} variants={itemVariants}>
+                <Card
+                  className={`liquid-glass group relative overflow-hidden transition-all duration-500 cursor-pointer border-white/5 hover:border-primary/30 ${isExpanded ? 'ring-2 ring-primary/50' : ''
+                    }`}
+                  onClick={() => setExpandedCard(isExpanded ? null : index)}
+                >
+                  <CardHeader className="relative z-10">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="p-3 rounded-2xl bg-primary/10 border border-primary/20 text-primary group-hover:neon-pulse transition-all">
+                        <Icon className="h-6 w-6" />
                       </div>
-                      <div className="text-xs text-muted-foreground">{benefit.stats.label}</div>
+                      {benefit.badge && (
+                        <Badge variant="outline" className="text-[10px] font-bold uppercase tracking-widest bg-white/5 border-white/10 text-slate-400">
+                          {benefit.badge}
+                        </Badge>
+                      )}
                     </div>
-                    <div className="flex items-center gap-2">
-                      <Progress value={benefit.progress} className="w-20" />
-                      <span className="text-sm font-medium">{benefit.progress}%</span>
-                    </div>
-                  </div>
+                    <CardTitle className="text-2xl font-black text-white">{benefit.title}</CardTitle>
+                    <CardDescription className="text-sm text-slate-400 leading-relaxed font-medium">
+                      {benefit.description}
+                    </CardDescription>
+                  </CardHeader>
 
-                  {/* Features expandibles */}
-                  <div className={`space-y-2 overflow-hidden transition-all duration-500 ${
-                    isExpanded ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'
-                  }`}>
-                    <div className="pt-4 border-t">
-                      <h4 className="font-semibold mb-3 text-sm">Características incluidas:</h4>
-                      <div className="space-y-2">
-                        {benefit.features.map((feature, featureIndex) => (
-                          <div key={featureIndex} className="flex items-center gap-2 text-sm">
-                            <CheckCircle className="h-4 w-4 text-green-500 flex-shrink-0" />
-                            <span>{feature}</span>
+                  <CardContent className="relative z-10 space-y-6">
+                    <div className="flex items-center justify-between">
+                      <div className="space-y-1">
+                        <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">{benefit.stats.label}</p>
+                        <p className="text-2xl font-black text-white">{benefit.stats.value}</p>
+                      </div>
+                      <div className="flex flex-col items-end gap-2">
+                        <span className="text-xs font-bold text-slate-400">{benefit.progress}%</span>
+                        <Progress value={benefit.progress} className="w-24 h-1.5 bg-white/5" />
+                      </div>
+                    </div>
+
+                    <AnimatePresence>
+                      {isExpanded && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="pt-6 border-t border-white/5 space-y-4"
+                        >
+                          <h4 className="text-[10px] font-black uppercase tracking-widest text-primary">Features Incluidas:</h4>
+                          <div className="grid gap-3">
+                            {benefit.features.map((feature, fIdx) => (
+                              <div key={fIdx} className="flex items-center gap-3">
+                                <CheckCircle className="h-4 w-4 text-emerald-500 fill-emerald-500/10" />
+                                <span className="text-xs font-medium text-slate-300">{feature}</span>
+                              </div>
+                            ))}
                           </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
 
-                  {/* Botón de acción */}
-                  <Button 
-                    variant="ghost" 
-                    className="w-full mt-4 group"
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      toggleCard(index)
-                    }}
-                  >
-                    {isExpanded ? 'Ver menos' : 'Ver más detalles'}
-                    <ArrowRight className={`ml-2 h-4 w-4 transition-transform duration-300 ${
-                      isExpanded ? 'rotate-90' : 'group-hover:translate-x-1'
-                    }`} />
-                  </Button>
-                </CardContent>
-              </Card>
+                    <Button
+                      variant="ghost"
+                      className="w-full text-[10px] font-black uppercase tracking-widest hover:bg-white/[0.03] text-slate-400 hover:text-white group/btn"
+                    >
+                      {isExpanded ? 'Ocultar Detalles' : 'Ver más detalles'}
+                      <ArrowRight className={`ml-2 h-3 w-3 transition-transform duration-300 ${isExpanded ? '-rotate-90' : 'group-hover/btn:translate-x-1'}`} />
+                    </Button>
+                  </CardContent>
+
+                  {/* Corner glow */}
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-primary/10 blur-2xl rounded-full -mr-12 -mt-12 transition-colors group-hover:bg-primary/20" />
+                </Card>
+              </motion.div>
             )
           })}
-        </div>
+        </motion.div>
 
-        <div className="mt-16 text-center">
-          <div className="inline-flex items-center gap-8 p-6 bg-muted/50 rounded-lg">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-primary">300%</div>
-              <div className="text-sm text-muted-foreground">Crecimiento Promedio</div>
-            </div>
-            <div className="w-px h-12 bg-border"></div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-primary">24h</div>
-              <div className="text-sm text-muted-foreground">Primeros Resultados</div>
-            </div>
-            <div className="w-px h-12 bg-border"></div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-primary">98%</div>
-              <div className="text-sm text-muted-foreground">Clientes Satisfechos</div>
+        {/* Global Impact Footer */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-32 p-1 px-1 rounded-[2.5rem] bg-gradient-to-r from-primary/20 via-white/5 to-secondary/20"
+        >
+          <div className="liquid-glass rounded-[2.4rem] px-12 py-10 flex flex-wrap justify-between items-center gap-12">
+            {[
+              { label: "Crecimiento Promedio", value: "300%", icon: TrendingUp },
+              { label: "Primeros Resultados", value: "24h", icon: Zap },
+              { label: "Clientes Satisfechos", value: "98%", icon: Users }
+            ].map((stat, i) => (
+              <div key={i} className="flex items-center gap-6">
+                <div className="h-14 w-14 rounded-2xl bg-white/[0.03] border border-white/5 flex items-center justify-center text-primary group">
+                  <stat.icon className="h-6 w-6 group-hover:scale-110 transition-transform" />
+                </div>
+                <div className="space-y-1">
+                  <p className="text-4xl font-black text-white">{stat.value}</p>
+                  <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">{stat.label}</p>
+                </div>
+              </div>
+            ))}
+            <div className="flex-1 lg:flex justify-end hidden">
+              <Button className="bg-primary hover:bg-primary/90 text-white font-black uppercase tracking-widest text-xs px-8 py-6 rounded-2xl">
+                Empieza Ahora
+              </Button>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   )

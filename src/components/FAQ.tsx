@@ -1,58 +1,57 @@
 'use client'
 
-import { useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Badge } from '@/components/ui/badge'
-import { HelpCircle, Clock, Shield, Zap } from 'lucide-react'
+import { FlaskConical, BarChart3, Database, Code, Gauge, Shield, GitBranch, Layers } from 'lucide-react'
 
 const faqs = [
   {
-    question: '¿Cuánto tiempo toma ver resultados?',
-    answer: 'La mayoría de nuestros clientes comienzan a ver resultados medibles en las primeras 2-3 semanas. Sin embargo, para campañas completas con SEO, recomendamos un mínimo de 90 días para obtener resultados óptimos y sostenibles.',
-    icon: Clock,
+    question: '¿Cómo funciona el split testing A/B?',
+    answer: 'El motor asigna aleatoriamente a cada visitante una variante (A o B) usando Math.random() del lado del cliente. La asignación ocurre en el primer render y se trackea con Vercel Analytics. Cada interacción posterior (clicks en CTA, scroll, envío de formulario) queda asociada a la variante asignada.',
+    icon: FlaskConical,
+    badge: 'Core'
+  },
+  {
+    question: '¿Qué métricas se trackean con Vercel Analytics?',
+    answer: 'Se trackean eventos custom: hero_variant_shown (qué variante ve el usuario), cta_click (con qué variante y texto del botón), y cualquier interacción adicional que quieras medir. Vercel Analytics es edge-native, no impacta performance y no requiere consentimiento de cookies.',
+    icon: BarChart3,
     badge: 'Popular'
   },
   {
-    question: '¿Qué garantías ofrecen?',
-    answer: 'Ofrecemos una garantía de satisfacción de 30 días. Si no ves mejoras medibles en tus métricas clave durante el primer mes, te reembolsamos el 100% sin preguntas. Además, garantizamos un mínimo ROI de 2x en 6 meses.',
+    question: '¿Cómo se integra Supabase para captura de leads?',
+    answer: 'El formulario de contacto se conecta directamente a Supabase usando @supabase/supabase-js. Cada lead se inserta en una tabla con nombre, email, empresa, mensaje, y la fuente (ab-engine-landing). Row Level Security (RLS) está habilitado para proteger los datos.',
+    icon: Database,
+    badge: null
+  },
+  {
+    question: '¿Qué stack tecnológico usa este proyecto?',
+    answer: 'Next.js 16 con App Router y Turbopack, React 19, Tailwind CSS 4, Framer Motion 12 para animaciones, Vercel Analytics para tracking de eventos, Supabase como backend (PostgreSQL), y ShadCN UI para componentes. TypeScript end-to-end.',
+    icon: Code,
+    badge: null
+  },
+  {
+    question: '¿Cómo se determina la variante ganadora?',
+    answer: 'El dashboard visual del hero muestra las métricas comparativas: tasa de conversión (CVR) de cada variante, lift porcentual, y confianza estadística. En producción, se recomienda al menos 1,000 visitantes por variante para alcanzar significancia del 95%.',
+    icon: Gauge,
+    badge: null
+  },
+  {
+    question: '¿Es segura la integración con Supabase?',
+    answer: 'Sí. Se usa la clave anon (pública) con Row Level Security habilitado. Solo se permiten inserciones en la tabla de leads. La lectura y eliminación están bloqueadas desde el cliente. Las variables de entorno se manejan con .env.local.',
     icon: Shield,
     badge: null
   },
   {
-    question: '¿¿Cómo funciona el proceso de onboarding?',
-    answer: 'Nuestro proceso es simple: 1) Llamada inicial de 30 minutos para entender tus objetivos, 2) Auditoría gratuita de tu situación actual, 3) Presentación de estrategia personalizada, 4) Implementación en 48-72 horas, 5) Seguimiento semanal y optimización continua.',
-    icon: Zap,
+    question: '¿Puedo agregar más variantes (A/B/C/n)?',
+    answer: 'El motor actual soporta 2 variantes (A/B). Para tests multivariados, podés extender la lógica de asignación dividiendo Math.random() en N segmentos iguales. Cada variante necesita su propio tracking event y métricas asociadas.',
+    icon: GitBranch,
     badge: null
   },
   {
-    question: '¿Qué industrias han trabajado?',
-    answer: 'Tenemos experiencia en más de 25 industrias incluyendo: E-commerce, SaaS, servicios profesionales, salud, educación, bienes raíces, manufactura y retail. Adaptamos nuestras estrategias a las particularidades de cada sector.',
-    icon: HelpCircle,
-    badge: null
-  },
-  {
-    question: '¿¿Necesito tener conocimientos técnicos?',
-    answer: 'No necesitas experiencia técnica. Nuestro equipo maneja toda la parte técnica mientras tú te enfocas en tu negocio. Proporcionamos reportes sencillos de entender y reuniones regulares para explicarte el progreso.',
-    icon: HelpCircle,
-    badge: null
-  },
-  {
-    question: '¿¿Qué incluyen sus servicios?',
-    answer: 'Nuestros servicios incluyen: estrategia digital completa, gestión de campañas publicitarias, optimización SEO, creación de contenido, email marketing, análisis y reportes, soporte 24/7, y acceso a nuestra plataforma de automatización.',
-    icon: HelpCircle,
-    badge: null
-  },
-  {
-    question: '¿¿Cómo miden el éxito?',
-    answer: 'Medimos el éxito a través de KPIs específicos: aumento en tráfico web, tasa de conversión, costo por adquisición (CPA), retorno de inversión (ROI), posicionamiento en buscadores, y crecimiento en ingresos generados digitalmente.',
-    icon: HelpCircle,
-    badge: null
-  },
-  {
-    question: '¿¿Puedo cancelar en cualquier momento?',
-    answer: 'Sí, nuestros contratos son flexibles. Puedes cancelar en cualquier momento con 30 días de aviso. No hay penalizaciones ocultas. Creemos en mantener clientes por resultados, no por ataduras contractuales.',
-    icon: HelpCircle,
+    question: '¿Cómo se estructura el proyecto?',
+    answer: 'El proyecto usa App Router de Next.js con componentes en /src/components (Hero, Benefits, Testimonials, LeadForm, FAQ, Footer). Los estilos usan Tailwind CSS 4 con un design system custom (Liquid Luxury). Los componentes UI vienen de ShadCN.',
+    icon: Layers,
     badge: null
   }
 ]
@@ -67,14 +66,14 @@ export function FAQ() {
               Preguntas Frecuentes
             </h2>
             <p className="text-xl text-muted-foreground">
-              Todo lo que necesitas saber sobre nuestros servicios
+              Todo sobre el motor A/B, la arquitectura y las integraciones
             </p>
           </div>
 
           <Card>
             <CardHeader>
               <CardTitle className="text-2xl text-center">
-                Resuelve tus dudas
+                Documentación Técnica
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -109,20 +108,19 @@ export function FAQ() {
           <div className="mt-12 text-center">
             <div className="inline-flex items-center gap-6 p-6 bg-muted/50 rounded-lg">
               <div className="text-left">
-                <h3 className="font-semibold mb-2">¿Aún tienes dudas?</h3>
+                <h3 className="font-semibold mb-2">¿Querés ver el código?</h3>
                 <p className="text-sm text-muted-foreground mb-4">
-                  Habla directamente con uno de nuestros expertos
+                  El proyecto es open source. Revisá la implementación completa en GitHub.
                 </p>
-                <div className="flex items-center gap-4 text-sm">
-                  <div className="flex items-center gap-1">
-                    <Clock className="h-4 w-4 text-primary" />
-                    <span>Respuesta en 2h</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Shield className="h-4 w-4 text-primary" />
-                    <span>100% Gratuito</span>
-                  </div>
-                </div>
+                <a
+                  href="https://github.com/Diegofbis63/landing-page-ab-test-demo"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm font-bold text-primary hover:underline"
+                >
+                  <GitBranch className="h-4 w-4" />
+                  <span>Ver repositorio</span>
+                </a>
               </div>
             </div>
           </div>

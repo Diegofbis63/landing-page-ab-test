@@ -1,67 +1,60 @@
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Star, Quote } from 'lucide-react'
-import Image from 'next/image'
 
 const testimonials = [
   {
-    name: 'María González',
-    role: 'CEO de TechStart',
-    company: 'TechStart S.A.',
-    avatar: '/avatars/maria.jpg',
-    content: 'Increíble la transformación que lograron en solo 3 meses. Nuestras ventas aumentaron un 250% y el ROI fue visible desde la primera semana.',
-    rating: 5,
-    result: '+250% Ventas',
-    badge: 'Verificado'
-  },
-  {
-    name: 'Carlos Rodríguez',
-    role: 'Director de Marketing',
-    company: 'RetailPro',
-    avatar: '/avatars/carlos.jpg',
-    content: 'El equipo es excepcional. No solo nos dieron herramientas, nos enseñaron a usarlas estratégicamente. El mejor inversion que hemos hecho.',
-    rating: 5,
-    result: 'ROI 4.5x',
-    badge: null
-  },
-  {
-    name: 'Ana Martínez',
-    role: 'Fundadora',
-    company: 'EcoStyle',
-    avatar: '/avatars/ana.jpg',
-    content: 'Llevábamos años estancados hasta que encontramos esta solución. Ahora somos líderes en nuestro nicho y nuestra marca tiene reconocimiento internacional.',
-    rating: 5,
-    result: '+400% Tráfico',
-    badge: 'Verificado'
-  },
-  {
-    name: 'Diego Fernández',
-    role: 'Gerente Comercial',
-    company: 'BuildCorp',
-    avatar: '/avatars/diego.jpg',
-    content: 'La automatización nos ahorró 20 horas semanales y aumentó la calidad de nuestros leads. Ahora podemos enfocarnos en cerrar ventas.',
-    rating: 5,
-    result: '-20h/semana',
-    badge: null
-  },
-  {
-    name: 'Laura Silva',
+    name: 'Lucía Fernández',
     role: 'Head of Growth',
-    company: 'FoodTech',
-    avatar: '/avatars/laura.jpg',
-    content: 'Su enfoque basado en datos nos permitió entender mejor a nuestros clientes. Las conversiones mejoraron un 180% en el primer mes.',
+    company: 'ConvertLab',
+    content: 'Implementamos el motor A/B en nuestra landing principal. En 2 semanas identificamos que el CTA azul convertía un 38% más que el verde. Decisión basada en datos pura.',
     rating: 5,
-    result: '+180% Conversión',
+    result: '+38% CVR',
     badge: 'Verificado'
   },
   {
-    name: 'Roberto Morales',
-    role: 'Presidente',
-    company: 'LogisticsPlus',
-    avatar: '/avatars/roberto.jpg',
-    content: 'Contratamos a 3 agencias antes, ninguna se compara. La transparencia en los reportes y los resultados reales hacen toda la diferencia.',
+    name: 'Martín Suárez',
+    role: 'Product Manager',
+    company: 'ScaleUp.io',
+    content: 'La integración con Vercel Analytics fue instantánea. Cero config, cero impacto en performance. Vemos las métricas de cada variante en tiempo real sin herramientas externas.',
     rating: 5,
-    result: 'Retorno 6 meses',
+    result: 'Real-Time Data',
+    badge: null
+  },
+  {
+    name: 'Carolina Paz',
+    role: 'Marketing Lead',
+    company: 'FintechAR',
+    content: 'Los leads que capturamos con Supabase vienen segmentados por variante del test. Sabemos exactamente qué versión de la landing genera los leads más calificados.',
+    rating: 5,
+    result: '+52% Lead Quality',
+    badge: 'Verificado'
+  },
+  {
+    name: 'Diego Ramírez',
+    role: 'CTO',
+    company: 'DataDrive',
+    content: 'El stack Next.js + Vercel + Supabase es exactamente lo que necesitábamos. Deploy en menos de 5 minutos, testing desde el día uno. Sin dependencias innecesarias.',
+    rating: 5,
+    result: '5 Min Deploy',
+    badge: null
+  },
+  {
+    name: 'Valentina Torres',
+    role: 'UX Researcher',
+    company: 'PixelPerfect',
+    content: 'Antes dependíamos de Google Optimize (descontinuado). Este motor es moderno, edge-native, y nos da control total sobre qué testeamos y cómo medimos.',
+    rating: 5,
+    result: 'Full Control',
+    badge: 'Verificado'
+  },
+  {
+    name: 'Andrés Molina',
+    role: 'Founder',
+    company: 'LaunchStack',
+    content: 'Usamos el split test para probar dos headlines diferentes. La variante B generó un 27% más de scroll depth. Datos que cambian decisiones de producto.',
+    rating: 5,
+    result: '+27% Engagement',
     badge: null
   }
 ]
@@ -72,11 +65,11 @@ export function Testimonials() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            Historias de Éxito Reales
+            Resultados Reales de A/B Testing
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Descubre cómo empresas como la tuya están transformando su crecimiento 
-            con nuestras estrategias probadas.
+            Equipos que usan el motor A/B para tomar decisiones basadas en datos
+            y optimizar sus conversiones de forma continua.
           </p>
         </div>
 
@@ -143,7 +136,7 @@ export function Testimonials() {
               ))}
             </div>
             <p className="text-sm font-medium">
-              <span className="text-primary font-bold">500+</span> empresas confían en nosotros
+              <span className="text-primary font-bold">200+</span> equipos optimizando con A/B testing
             </p>
           </div>
         </div>

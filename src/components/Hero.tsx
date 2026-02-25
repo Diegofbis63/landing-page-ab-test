@@ -15,14 +15,16 @@ export function Hero() {
     const random = Math.random()
     const selectedVariant = random < 0.5 ? 'A' : 'B'
     setVariant(selectedVariant)
-    track('hero_variant_shown', { variant: selectedVariant })
+    try { track('hero_variant_shown', { variant: selectedVariant }) } catch { }
   }, [])
 
   const handleCTAClick = () => {
-    track('cta_click', {
-      variant,
-      buttonText: variant === 'A' ? 'Probar Motor A/B' : 'Empezar Split Test'
-    })
+    try {
+      track('cta_click', {
+        variant,
+        buttonText: variant === 'A' ? 'Probar Motor A/B' : 'Empezar Split Test'
+      })
+    } catch { }
     document.getElementById('lead-form')?.scrollIntoView({ behavior: 'smooth' })
   }
 
@@ -87,8 +89,8 @@ export function Hero() {
                 <Button
                   size="lg"
                   className={`font-black uppercase tracking-widest text-sm px-10 py-7 rounded-2xl shadow-2xl transition-all w-full sm:w-auto ${variant === 'A'
-                      ? 'bg-white text-black hover:bg-slate-200'
-                      : 'bg-primary text-white hover:bg-primary/90'
+                    ? 'bg-white text-black hover:bg-slate-200'
+                    : 'bg-primary text-white hover:bg-primary/90'
                     }`}
                   onClick={handleCTAClick}
                 >

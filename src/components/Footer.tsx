@@ -11,9 +11,6 @@ export function Footer() {
               Motor de A/B testing open source construido con Next.js, Vercel Analytics y Supabase. Demo funcional de split testing en producción.
             </p>
             <div className="flex items-center gap-4">
-              <a href="https://github.com/Diegofbis63/landing-page-ab-test-demo" target="_blank" rel="noopener noreferrer">
-                <Github className="h-5 w-5 text-muted-foreground hover:text-primary cursor-pointer transition-colors" />
-              </a>
               <a href="https://landing-page-ab-test-demo.vercel.app" target="_blank" rel="noopener noreferrer">
                 <Globe className="h-5 w-5 text-muted-foreground hover:text-primary cursor-pointer transition-colors" />
               </a>
@@ -44,17 +41,13 @@ export function Footer() {
           <div>
             <h4 className="font-semibold mb-4">Proyecto</h4>
             <div className="space-y-3 text-sm text-muted-foreground">
-              <a href="https://github.com/Diegofbis63/landing-page-ab-test-demo" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-primary transition-colors">
-                <Github className="h-4 w-4" />
-                <span>Ver código fuente</span>
-              </a>
               <a href="https://dfbportfolio.vercel.app" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-primary transition-colors">
                 <Globe className="h-4 w-4" />
                 <span>Portfolio completo</span>
               </a>
               <div className="flex items-center gap-2">
                 <Mail className="h-4 w-4" />
-                <span>diegofbis@gmail.com</span>
+                <span>diegofbisquerra@gmail.com</span>
               </div>
               <a href="/login" className="flex items-center gap-2 text-indigo-400 hover:text-indigo-300 transition-colors font-medium">
                 <Globe className="h-4 w-4" />

@@ -105,25 +105,7 @@ export function FAQ() {
             </CardContent>
           </Card>
 
-          <div className="mt-12 text-center">
-            <div className="inline-flex items-center gap-6 p-6 bg-muted/50 rounded-lg">
-              <div className="text-left">
-                <h3 className="font-semibold mb-2">¿Querés ver el código?</h3>
-                <p className="text-sm text-muted-foreground mb-4">
-                  El proyecto es open source. Revisá la implementación completa en GitHub.
-                </p>
-                <a
-                  href="https://github.com/Diegofbis63/landing-page-ab-test-demo"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm font-bold text-primary hover:underline"
-                >
-                  <GitBranch className="h-4 w-4" />
-                  <span>Ver repositorio</span>
-                </a>
-              </div>
-            </div>
-          </div>
+
         </div>
       </div>
     </section>

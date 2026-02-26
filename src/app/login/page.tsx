@@ -11,7 +11,7 @@ import { Label } from '@/components/ui/label'
 
 function LoginForm() {
     const [isLoading, setIsLoading] = useState(false)
-    const [email, setEmail] = useState('admin@antigravity.com')
+    const [email, setEmail] = useState('diegofbisquerra@gmail.com')
     const [password, setPassword] = useState('admin123')
     const router = useRouter()
     const searchParams = useSearchParams()
@@ -88,7 +88,7 @@ function LoginForm() {
                                 <Input
                                     id="email"
                                     type="email"
-                                    placeholder="admin@antigravity.com"
+                                    placeholder="diegofbisquerra@gmail.com"
                                     className="pl-10 bg-slate-950/50 border-white/10 text-white placeholder:text-slate-600 h-12 rounded-xl focus-visible:ring-indigo-500/50"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}

@@ -5,8 +5,8 @@ export async function POST(request: Request) {
         const { email, password } = await request.json()
 
         // System-wide admin password for display purposes. 
-        // Secure enough for demo, easily upgradeable to Supabase Auth.
-        if (email === 'admin@antigravity.com' && password === 'admin123') {
+        // Simular validación de credenciales (Demo)
+        if (email === 'diegofbisquerra@gmail.com' && password === 'admin123') {
             const response = NextResponse.json({ success: true })
 
             response.cookies.set({

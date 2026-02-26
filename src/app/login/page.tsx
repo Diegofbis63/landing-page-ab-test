@@ -3,7 +3,7 @@
 import { Suspense, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { Loader2, Lock, Mail, ArrowRight } from 'lucide-react'
+import { Loader2, Lock, Mail, ArrowRight, Sparkles } from 'lucide-react'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -11,8 +11,8 @@ import { Label } from '@/components/ui/label'
 
 function LoginForm() {
     const [isLoading, setIsLoading] = useState(false)
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const [email, setEmail] = useState('admin@antigravity.com')
+    const [password, setPassword] = useState('admin123')
     const router = useRouter()
     const searchParams = useSearchParams()
     const callbackUrl = searchParams.get('callbackUrl') || '/admin/dashboard'
@@ -113,19 +113,34 @@ function LoginForm() {
                             </div>
                         </div>
 
-                        <Button
-                            type="submit"
-                            className="w-full h-12 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white font-medium tracking-wide shadow-[0_0_20px_rgba(99,102,241,0.3)] transition-all hover:shadow-[0_0_25px_rgba(99,102,241,0.5)] group"
-                            disabled={isLoading}
-                        >
-                            {isLoading ? (
-                                <Loader2 className="w-5 h-5 animate-spin" />
-                            ) : (
+                        <div className="space-y-3">
+                            <Button
+                                type="submit"
+                                className="w-full h-12 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white font-medium tracking-wide shadow-[0_0_20px_rgba(99,102,241,0.3)] transition-all hover:shadow-[0_0_25px_rgba(99,102,241,0.5)] group"
+                                disabled={isLoading}
+                            >
+                                {isLoading ? (
+                                    <Loader2 className="w-5 h-5 animate-spin" />
+                                ) : (
+                                    <span className="flex items-center gap-2">
+                                        Authenticate <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                    </span>
+                                )}
+                            </Button>
+
+                            <Button
+                                type="button"
+                                onClick={handleLogin}
+                                variant="outline"
+                                className="w-full h-12 rounded-xl bg-indigo-500/5 hover:bg-indigo-500/10 border-indigo-500/20 text-indigo-300 font-medium tracking-wide transition-all group"
+                                disabled={isLoading}
+                            >
                                 <span className="flex items-center gap-2">
-                                    Authenticate <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                    <Sparkles className="w-4 h-4 text-indigo-400 group-hover:text-indigo-300 group-hover:scale-110 transition-all" />
+                                    Ingresar rápido como Admin Demo
                                 </span>
-                            )}
-                        </Button>
+                            </Button>
+                        </div>
                     </form>
 
                     <div className="mt-8 text-center">

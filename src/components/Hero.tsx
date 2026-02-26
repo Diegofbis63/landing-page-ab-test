@@ -3,8 +3,9 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
-import { ArrowRight, SplitSquareVertical, BarChart3, TrendingUp, Sparkles, FlaskConical } from 'lucide-react'
+import { ArrowRight, SplitSquareVertical, BarChart3, TrendingUp, Sparkles, FlaskConical, Lock } from 'lucide-react'
 import { track } from '@vercel/analytics'
+import Link from 'next/link'
 
 export function Hero() {
   const [variant, setVariant] = useState<'A' | 'B'>('A')
@@ -32,6 +33,16 @@ export function Hero() {
 
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center pt-32 pb-20 overflow-hidden bg-background">
+      {/* Top Navigation for Admin Access */}
+      <div className="absolute top-0 w-full p-6 flex justify-end z-50">
+        <Link href="/login">
+          <Button variant="ghost" className="text-slate-400 hover:text-white font-medium gap-2">
+            <Lock className="w-4 h-4" />
+            Admin Demo
+          </Button>
+        </Link>
+      </div>
+
       {/* Dynamic Background */}
       <div className="absolute inset-0 z-0 opacity-30">
         <div className="absolute top-[10%] left-[10%] w-[40%] h-[40%] bg-primary/20 blur-[120px] rounded-full animate-pulse" />

@@ -13,6 +13,18 @@ import { createClient } from '@supabase/supabase-js'
 import { toast } from 'sonner'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { z } from "zod"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+
+const leadFormSchema = z.object({
+  name: z.string().min(2, "El nombre debe tener al menos 2 caracteres."),
+  email: z.string().email("El formato del email no es válido."),
+  company: z.string().optional(),
+  message: z.string().optional()
+})
+
+type LeadFormValues = z.infer<typeof leadFormSchema>
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL ?? '',
@@ -24,31 +36,21 @@ export function LeadForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [capturedVariant, setCapturedVariant] = useState('A')
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    message: ''
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<LeadFormValues>({
+    resolver: zodResolver(leadFormSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      company: '',
+      message: ''
+    }
   })
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-
-    if (!formData.name.trim() || !formData.email.trim()) {
-      toast.error('Los campos Nombre y Email son obligatorios.', {
-        className: 'bg-rose-950/80 backdrop-blur-md border-rose-500/30 text-rose-400 shadow-[0_0_20px_rgba(225,29,72,0.2)]',
-      })
-      return
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(formData.email)) {
-      toast.error('El formato del email no es válido.', {
-        className: 'bg-rose-950/80 backdrop-blur-md border-rose-500/30 text-rose-400 shadow-[0_0_20px_rgba(225,29,72,0.2)]',
-      })
-      return
-    }
-
+  const onSubmit = async (data: LeadFormValues) => {
     setIsSubmitting(true)
 
     try {
@@ -61,10 +63,10 @@ export function LeadForm() {
       const { error } = await supabase
         .from('leads')
         .insert([{
-          name: formData.name,
-          email: formData.email,
-          company: formData.company,
-          message: formData.message,
+          name: data.name,
+          email: data.email,
+          company: data.company,
+          message: data.message,
           source: activeVariant,
           created_at: new Date().toISOString()
         }])
@@ -192,52 +194,48 @@ export function LeadForm() {
                       </p>
                     </CardHeader>
                     <CardContent className="p-8 pt-4">
-                      <form onSubmit={handleSubmit} className="space-y-6">
+                      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                         <div className="grid sm:grid-cols-2 gap-4">
                           <div className="space-y-2">
                             <Label htmlFor="name" className="text-xs font-bold uppercase tracking-widest text-slate-500">Nombre</Label>
                             <Input
                               id="name"
-                              required
-                              className="bg-white/[0.02] border-white/5 rounded-2xl h-14 focus:ring-primary focus:border-primary transition-all text-white"
-                              value={formData.name}
-                              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                              className={`bg-white/[0.02] border-white/5 rounded-2xl h-14 focus:ring-primary focus:border-primary transition-all text-white ${errors.name ? 'border-rose-500/50 focus:border-rose-500' : ''}`}
                               placeholder="Tu nombre"
+                              {...register("name")}
                             />
+                            {errors.name && <p className="text-xs text-rose-400 font-medium">{errors.name.message}</p>}
                           </div>
                           <div className="space-y-2">
                             <Label htmlFor="email" className="text-xs font-bold uppercase tracking-widest text-slate-500">Email</Label>
                             <Input
                               id="email"
                               type="email"
-                              required
-                              className="bg-white/[0.02] border-white/5 rounded-2xl h-14 focus:ring-primary focus:border-primary transition-all text-white"
-                              value={formData.email}
-                              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                              className={`bg-white/[0.02] border-white/5 rounded-2xl h-14 focus:ring-primary focus:border-primary transition-all text-white ${errors.email ? 'border-rose-500/50 focus:border-rose-500' : ''}`}
                               placeholder="tu@email.com"
+                              {...register("email")}
                             />
+                            {errors.email && <p className="text-xs text-rose-400 font-medium">{errors.email.message}</p>}
                           </div>
                         </div>
 
                         <div className="space-y-2">
-                          <Label htmlFor="company" className="text-xs font-bold uppercase tracking-widest text-slate-500">Empresa</Label>
+                          <Label htmlFor="company" className="text-xs font-bold uppercase tracking-widest text-slate-500">Empresa (Opcional)</Label>
                           <Input
                             id="company"
                             className="bg-white/[0.02] border-white/5 rounded-2xl h-14 focus:ring-primary focus:border-primary transition-all text-white"
-                            value={formData.company}
-                            onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                             placeholder="Tu empresa"
+                            {...register("company")}
                           />
                         </div>
 
                         <div className="space-y-2">
-                          <Label htmlFor="message" className="text-xs font-bold uppercase tracking-widest text-slate-500">Mensaje</Label>
+                          <Label htmlFor="message" className="text-xs font-bold uppercase tracking-widest text-slate-500">Mensaje (Opcional)</Label>
                           <Textarea
                             id="message"
                             className="bg-white/[0.02] border-white/5 rounded-2xl focus:ring-primary focus:border-primary transition-all text-white min-h-[120px]"
-                            value={formData.message}
-                            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                             placeholder="Probando la captura de leads..."
+                            {...register("message")}
                           />
                         </div>
 

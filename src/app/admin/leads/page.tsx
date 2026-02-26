@@ -128,9 +128,25 @@ export default function LeadsPage() {
                     {/* Data Table */}
                     <div className="relative w-full overflow-auto">
                         {loading ? (
-                            <div className="h-[400px] flex flex-col items-center justify-center text-slate-400">
-                                <Loader2 className="w-8 h-8 animate-spin text-indigo-500 mb-4" />
-                                <p className="font-medium tracking-wide">Decrypting database records...</p>
+                            <div className="min-w-[800px] w-full">
+                                <div className="border-b border-white/5 py-4 px-6 flex space-x-4">
+                                    <div className="h-4 w-32 bg-white/5 rounded animate-pulse" />
+                                    <div className="h-4 w-32 bg-white/5 rounded animate-pulse" />
+                                    <div className="h-4 w-48 bg-white/5 rounded animate-pulse" />
+                                    <div className="h-4 w-24 bg-white/5 rounded animate-pulse" />
+                                </div>
+                                {Array.from({ length: 8 }).map((_, i) => (
+                                    <div key={i} className="border-b border-white/5 py-6 px-6 flex items-center justify-between">
+                                        <div className="space-y-2">
+                                            <div className="h-4 w-48 bg-white/5 rounded animate-pulse" />
+                                            <div className="h-3 w-32 bg-white/5 rounded animate-pulse" />
+                                        </div>
+                                        <div className="h-6 w-24 bg-white/5 rounded-full animate-pulse" />
+                                        <div className="h-4 w-64 bg-white/5 rounded animate-pulse" />
+                                        <div className="h-8 w-24 bg-white/5 rounded-lg animate-pulse" />
+                                        <div className="h-4 w-24 bg-white/5 rounded animate-pulse" />
+                                    </div>
+                                ))}
                             </div>
                         ) : filteredLeads.length === 0 ? (
                             <div className="h-[400px] flex flex-col items-center justify-center text-slate-500">

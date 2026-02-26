@@ -7,6 +7,7 @@ import { ArrowUpRight, ArrowDownRight, Users, TrendingUp, SplitSquareVertical } 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts'
+import { useEffect } from 'react'
 
 // Simulated data
 const metrics = [
@@ -52,6 +53,14 @@ const chartData = [
 
 export default function DashboardPage() {
     const [activeFilter, setActiveFilter] = useState<'ALL' | 'A' | 'B'>('ALL')
+    const [isLoading, setIsLoading] = useState(true)
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsLoading(false)
+        }, 1500)
+        return () => clearTimeout(timer)
+    }, [])
 
     const filteredChartData = chartData.map(data => {
         if (activeFilter === 'A') {
@@ -73,59 +82,73 @@ export default function DashboardPage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {metrics.map((metric, index) => {
-                    const Icon = metric.icon
-                    const isPositive = metric.trend === 'up'
-                    const isClickable = metric.title.includes('Variante')
-                    const variantName = metric.title.includes('A') ? 'A' : metric.title.includes('B') ? 'B' : null
+                {isLoading ? (
+                    Array.from({ length: 4 }).map((_, index) => (
+                        <Card key={index} className="bg-slate-900/50 backdrop-blur-xl border-white/5 overflow-hidden">
+                            <CardHeader className="flex flex-row items-center justify-between pb-2">
+                                <div className="h-4 w-24 bg-white/5 rounded animate-pulse" />
+                                <div className="h-8 w-8 bg-white/5 rounded-lg animate-pulse" />
+                            </CardHeader>
+                            <CardContent>
+                                <div className="h-8 w-20 bg-white/5 rounded animate-pulse mb-2" />
+                                <div className="h-3 w-32 bg-white/5 rounded animate-pulse" />
+                            </CardContent>
+                        </Card>
+                    ))
+                ) : (
+                    metrics.map((metric, index) => {
+                        const Icon = metric.icon
+                        const isPositive = metric.trend === 'up'
+                        const isClickable = metric.title.includes('Variante')
+                        const variantName = metric.title.includes('A') ? 'A' : metric.title.includes('B') ? 'B' : null
 
-                    const handleCardClick = () => {
-                        if (!isClickable || !variantName) return
-                        setActiveFilter(prev => prev === variantName ? 'ALL' : variantName)
-                    }
+                        const handleCardClick = () => {
+                            if (!isClickable || !variantName) return
+                            setActiveFilter(prev => prev === variantName ? 'ALL' : variantName)
+                        }
 
-                    const isSelected = activeFilter === variantName
+                        const isSelected = activeFilter === variantName
 
-                    return (
-                        <motion.div
-                            key={metric.title}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: index * 0.1, duration: 0.5 }}
-                            whileHover={isClickable ? { scale: 1.02, y: -5 } : {}}
-                            whileTap={isClickable ? { scale: 0.98 } : {}}
-                            onClick={handleCardClick}
-                            className={isClickable ? 'cursor-pointer' : ''}
-                        >
-                            <Card className={cn(
-                                "bg-slate-900/50 backdrop-blur-xl border-white/5 overflow-hidden relative group transition-all duration-300",
-                                isClickable && "hover:border-indigo-500/50 hover:shadow-[0_0_30px_rgba(99,102,241,0.15)]",
-                                isSelected && "border-indigo-500/50 bg-indigo-500/10 shadow-[0_0_30px_rgba(99,102,241,0.2)]"
-                            )}>
-                                <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                        return (
+                            <motion.div
+                                key={metric.title}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: index * 0.1, duration: 0.5 }}
+                                whileHover={isClickable ? { scale: 1.02, y: -5 } : {}}
+                                whileTap={isClickable ? { scale: 0.98 } : {}}
+                                onClick={handleCardClick}
+                                className={isClickable ? 'cursor-pointer' : ''}
+                            >
+                                <Card className={cn(
+                                    "bg-slate-900/50 backdrop-blur-xl border-white/5 overflow-hidden relative group transition-all duration-300",
+                                    isClickable && "hover:border-indigo-500/50 hover:shadow-[0_0_30px_rgba(99,102,241,0.15)]",
+                                    isSelected && "border-indigo-500/50 bg-indigo-500/10 shadow-[0_0_30px_rgba(99,102,241,0.2)]"
+                                )}>
+                                    <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
 
-                                <CardHeader className="flex flex-row items-center justify-between pb-2">
-                                    <CardTitle className="text-sm font-medium text-slate-400">
-                                        {metric.title}
-                                    </CardTitle>
-                                    <div className="p-2 bg-white/5 rounded-lg border border-white/5">
-                                        <Icon className="w-4 h-4 text-indigo-400" />
-                                    </div>
-                                </CardHeader>
-                                <CardContent>
-                                    <div className="text-3xl font-bold text-white mb-2">{metric.value}</div>
-                                    <div className={cn(
-                                        "flex items-center text-xs font-medium",
-                                        isPositive ? "text-emerald-400" : "text-rose-400"
-                                    )}>
-                                        {isPositive ? <ArrowUpRight className="w-3 h-3 mr-1" /> : <ArrowDownRight className="w-3 h-3 mr-1" />}
-                                        {metric.change} desde el mes pasado
-                                    </div>
-                                </CardContent>
-                            </Card>
-                        </motion.div>
-                    )
-                })}
+                                    <CardHeader className="flex flex-row items-center justify-between pb-2">
+                                        <CardTitle className="text-sm font-medium text-slate-400">
+                                            {metric.title}
+                                        </CardTitle>
+                                        <div className="p-2 bg-white/5 rounded-lg border border-white/5">
+                                            <Icon className="w-4 h-4 text-indigo-400" />
+                                        </div>
+                                    </CardHeader>
+                                    <CardContent>
+                                        <div className="text-3xl font-bold text-white mb-2">{metric.value}</div>
+                                        <div className={cn(
+                                            "flex items-center text-xs font-medium",
+                                            isPositive ? "text-emerald-400" : "text-rose-400"
+                                        )}>
+                                            {isPositive ? <ArrowUpRight className="w-3 h-3 mr-1" /> : <ArrowDownRight className="w-3 h-3 mr-1" />}
+                                            {metric.change} desde el mes pasado
+                                        </div>
+                                    </CardContent>
+                                </Card>
+                            </motion.div>
+                        )
+                    }))}
             </div>
 
             <motion.div
@@ -138,28 +161,36 @@ export default function DashboardPage() {
                         <CardTitle className="text-white text-xl font-bold">Conversiones: Variante A vs Variante B</CardTitle>
                     </CardHeader>
                     <CardContent className="p-6">
-                        <div className="h-[400px] w-full pt-4 overflow-x-auto">
-                            <div className="min-w-[600px] h-full">
-                                <ResponsiveContainer width="100%" height="100%">
-                                    <BarChart data={filteredChartData} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
-                                        <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" vertical={false} />
-                                        <XAxis dataKey="name" stroke="#ffffff50" tick={{ fill: '#ffffff80', fontSize: 12 }} tickLine={false} axisLine={false} />
-                                        <YAxis stroke="#ffffff50" tick={{ fill: '#ffffff80', fontSize: 12 }} tickLine={false} axisLine={false} />
-                                        <Tooltip
-                                            cursor={{ fill: '#ffffff05' }}
-                                            contentStyle={{ backgroundColor: '#0f172a', borderColor: '#ffffff10', borderRadius: '12px', color: '#fff' }}
-                                        />
-                                        <Legend wrapperStyle={{ paddingTop: '20px' }} />
-                                        {(activeFilter === 'ALL' || activeFilter === 'A') && (
-                                            <Bar dataKey="Variante A" fill="#34d399" radius={[4, 4, 0, 0]} maxBarSize={50} />
-                                        )}
-                                        {(activeFilter === 'ALL' || activeFilter === 'B') && (
-                                            <Bar dataKey="Variante B" fill="#6366f1" radius={[4, 4, 0, 0]} maxBarSize={50} />
-                                        )}
-                                    </BarChart>
-                                </ResponsiveContainer>
+                        {isLoading ? (
+                            <div className="h-[400px] w-full pt-4 flex items-end justify-between px-4 pb-8 space-x-2">
+                                {Array.from({ length: 14 }).map((_, i) => (
+                                    <div key={i} className="w-full bg-indigo-500/10 rounded-t-sm animate-pulse" style={{ height: `${Math.max(20, Math.random() * 80)}%` }} />
+                                ))}
                             </div>
-                        </div>
+                        ) : (
+                            <div className="h-[400px] w-full pt-4 overflow-x-auto">
+                                <div className="min-w-[600px] h-full">
+                                    <ResponsiveContainer width="100%" height="100%">
+                                        <BarChart data={filteredChartData} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
+                                            <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" vertical={false} />
+                                            <XAxis dataKey="name" stroke="#ffffff50" tick={{ fill: '#ffffff80', fontSize: 12 }} tickLine={false} axisLine={false} />
+                                            <YAxis stroke="#ffffff50" tick={{ fill: '#ffffff80', fontSize: 12 }} tickLine={false} axisLine={false} />
+                                            <Tooltip
+                                                cursor={{ fill: '#ffffff05' }}
+                                                contentStyle={{ backgroundColor: '#0f172a', borderColor: '#ffffff10', borderRadius: '12px', color: '#fff' }}
+                                            />
+                                            <Legend wrapperStyle={{ paddingTop: '20px' }} />
+                                            {(activeFilter === 'ALL' || activeFilter === 'A') && (
+                                                <Bar dataKey="Variante A" fill="#34d399" radius={[4, 4, 0, 0]} maxBarSize={50} />
+                                            )}
+                                            {(activeFilter === 'ALL' || activeFilter === 'B') && (
+                                                <Bar dataKey="Variante B" fill="#6366f1" radius={[4, 4, 0, 0]} maxBarSize={50} />
+                                            )}
+                                        </BarChart>
+                                    </ResponsiveContainer>
+                                </div>
+                            </div>
+                        )}
                     </CardContent>
                 </Card>
             </motion.div>

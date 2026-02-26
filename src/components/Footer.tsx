@@ -60,7 +60,7 @@ export function Footer() {
         <div className="border-t mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-muted-foreground">
-              © 2026 A/B Engine — Built by Diego Fernández Bustamante
+              © 2026 A/B Engine — Todos los derechos reservados.
             </p>
             <div className="flex items-center gap-6 text-sm text-muted-foreground">
               <span>Next.js 16</span>

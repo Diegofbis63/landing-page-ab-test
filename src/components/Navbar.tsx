@@ -19,7 +19,7 @@ export function Navbar() {
                     <div className="h-8 w-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center shadow-[0_0_15px_rgba(99,102,241,0.5)]">
                         <span className="text-white font-black text-xs tracking-tighter">A/B</span>
                     </div>
-                    <span className="text-white font-bold tracking-tight text-sm hidden sm:block">Antigravity Engine</span>
+                    <span className="text-white font-bold tracking-tight text-sm hidden sm:block">A/B Engine</span>
                 </div>
 
                 {/* Action Button */}

@@ -12,11 +12,6 @@ import { Badge } from '@/components/ui/badge'
 import { toast } from 'sonner'
 import { supabase } from '@/lib/supabase'
 
-const fakeFirstNames = ["Sofia", "Mateo", "Valentina", "Santiago", "Camila", "Leonardo", "Isabella", "Lucas", "Valeria", "Diego", "Victoria", "Gabriel", "Martina", "Daniel", "Lucia"]
-const fakeLastNames = ["Gomez", "Rodriguez", "Fernandez", "Lopez", "Martinez", "Gonzalez", "Perez", "Sanchez", "Romero", "Sosa", "Torres", "Ruiz", "Ramirez", "Flores", "Acosta"]
-const fakeCompanies = ["Acme Corp", "TechNova", "Globalix", "FintechAR", "CloudSync", "DataMinds", "PixelPerfect", "GrowthLab", "NextGen", "ScaleUp io"]
-
-
 export default function SettingsPage() {
     const [isEngineActive, setIsEngineActive] = useState(true)
     const [trafficSplit, setTrafficSplit] = useState([50])
@@ -31,47 +26,6 @@ export default function SettingsPage() {
                 icon: <Save className="w-5 h-5" />,
             })
         }, 800)
-    }
-
-    const [isSeeding, setIsSeeding] = useState(false)
-
-    const handleSeedData = async () => {
-        setIsSeeding(true)
-        const leadsToInsert: any[] = []
-
-        for (let i = 0; i < 50; i++) {
-            const firstName = fakeFirstNames[Math.floor(Math.random() * fakeFirstNames.length)]
-            const lastName = fakeLastNames[Math.floor(Math.random() * fakeLastNames.length)]
-            const company = Math.random() > 0.3 ? fakeCompanies[Math.floor(Math.random() * fakeCompanies.length)] : null
-            const variant = Math.random() > 0.5 ? 'Variante A' : 'Variante B'
-
-            // Random date within the last 7 days
-            const date = new Date()
-            date.setDate(date.getDate() - Math.floor(Math.random() * 7))
-            date.setHours(date.getHours() - Math.floor(Math.random() * 24))
-
-            leadsToInsert.push({
-                name: `${firstName} ${lastName}`,
-                email: `${firstName.toLowerCase()}.${lastName.toLowerCase()}@${company ? company.toLowerCase().replace(' ', '') + '.com' : 'email.com'}`,
-                company: company,
-                message: Math.random() > 0.5 ? 'Interesado en una demostración corporativa.' : 'Me gustaría conocer los precios por volumen.',
-                source: variant,
-                created_at: date.toISOString()
-            })
-        }
-
-        try {
-            const { error } = await supabase.from('leads').insert(leadsToInsert)
-            if (error) throw error
-            toast.success('50 leads generados exitosamente en la base de datos.', {
-                className: 'bg-indigo-950 border-indigo-500/30 text-indigo-400 shadow-[0_0_20px_rgba(99,102,241,0.2)]'
-            })
-        } catch (error) {
-            console.error('Seed error:', error)
-            toast.error('Error al generar leads de prueba.')
-        } finally {
-            setIsSeeding(false)
-        }
     }
 
     return (
@@ -172,19 +126,6 @@ export default function SettingsPage() {
                         </Button>
                     </CardFooter>
                 </Card>
-
-                {/* Developer Tools (Hidden Feature) */}
-                <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className="pt-10 flex justify-center">
-                    <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={handleSeedData}
-                        disabled={isSeeding}
-                        className="text-slate-600 hover:text-indigo-400 hover:bg-indigo-500/10 text-xs border border-transparent hover:border-indigo-500/20 rounded-full transition-all"
-                    >
-                        {isSeeding ? 'Inyectando Leads...' : '🔧 Generar 50 Leads de Prueba (Dev)'}
-                    </Button>
-                </motion.div>
             </motion.div>
         </div>
     )

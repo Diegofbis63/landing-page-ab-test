@@ -8,10 +8,11 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { Badge } from '@/components/ui/badge'
-import { Send, CheckCircle, FlaskConical, BarChart3, Database, ArrowRight, LayoutDashboard } from 'lucide-react'
+import { Send, CheckCircle, FlaskConical, BarChart3, Database, ArrowRight, LayoutDashboard, Loader2 } from 'lucide-react'
 import { createClient } from '@supabase/supabase-js'
 import { toast } from 'sonner'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL ?? '',
@@ -19,6 +20,7 @@ const supabase = createClient(
 )
 
 export function LeadForm() {
+  const router = useRouter()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [capturedVariant, setCapturedVariant] = useState('A')
@@ -50,6 +52,9 @@ export function LeadForm() {
     setIsSubmitting(true)
 
     try {
+      // Simular tiempo de análisis A/B
+      await new Promise(resolve => setTimeout(resolve, 1500))
+
       const activeVariant = Math.random() > 0.5 ? 'Variante A' : 'Variante B'
       setCapturedVariant(activeVariant.replace('Variante ', ''))
 
@@ -67,13 +72,17 @@ export function LeadForm() {
       if (error) throw error
 
       setIsSubmitted(true)
-      toast.success('Lead capturado con éxito. Revisa el panel de admin.', {
+      toast.success('🚀 Lead capturado. Redirigiendo al Dashboard...', {
         className: 'bg-slate-900 border-indigo-500/30 text-white shadow-[0_0_20px_rgba(99,102,241,0.2)]',
-        duration: 5000,
+        duration: 3000,
       })
+
+      setTimeout(() => {
+        router.push('/login')
+      }, 2000)
+
     } catch {
       toast.error('Error al enviar. Intentá de nuevo.')
-    } finally {
       setIsSubmitting(false)
     }
   }
@@ -238,8 +247,17 @@ export function LeadForm() {
                           className="w-full bg-white text-black hover:bg-slate-200 font-black uppercase tracking-widest text-sm py-7 rounded-2xl shadow-2xl transition-all"
                           disabled={isSubmitting}
                         >
-                          {isSubmitting ? 'Cargando...' : 'Enviar Lead de Prueba'}
-                          {!isSubmitting && <ArrowRight className="ml-2 h-4 w-4" />}
+                          {isSubmitting ? (
+                            <>
+                              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                              Procesando Variante...
+                            </>
+                          ) : (
+                            <>
+                              Enviar Lead de Prueba
+                              <ArrowRight className="ml-2 h-4 w-4" />
+                            </>
+                          )}
                         </Button>
                       </form>
                     </CardContent>

@@ -89,10 +89,7 @@ export function Hero() {
               <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="flex-1 min-w-[200px]">
                 <Button
                   size="lg"
-                  className={`font-black uppercase tracking-widest text-xs sm:text-sm px-6 py-6 sm:py-7 rounded-2xl shadow-[0_0_30px_rgba(255,255,255,0.1)] transition-all w-full flex items-center justify-center gap-2 ${variant === 'A'
-                    ? 'bg-white text-black hover:bg-slate-200'
-                    : 'bg-primary text-white hover:bg-primary/90'
-                    }`}
+                  className="font-black uppercase tracking-widest text-xs sm:text-sm px-6 py-6 sm:py-7 rounded-2xl shadow-lg shadow-indigo-500/20 transition-all w-full flex items-center justify-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white border border-white/20 hover:brightness-110"
                   onClick={handleCTAClick}
                 >
                   <FlaskConical className="w-4 h-4 shrink-0" />
@@ -104,7 +101,7 @@ export function Hero() {
                 <Link href="/login" className="block w-full">
                   <Button
                     size="lg"
-                    className="bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 hover:bg-indigo-500/20 font-black uppercase tracking-widest text-xs sm:text-sm px-6 py-6 sm:py-7 rounded-2xl transition-all w-full flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(99,102,241,0.1)]"
+                    className="backdrop-blur-md bg-white/5 border border-white/10 text-slate-300 hover:text-white hover:bg-white/10 hover:border-white/20 font-black uppercase tracking-widest text-xs sm:text-sm px-6 py-6 sm:py-7 rounded-2xl transition-all w-full flex items-center justify-center gap-2"
                   >
                     <LayoutDashboard className="h-4 w-4 text-indigo-400 shrink-0" />
                     <span className="truncate">Ver Panel Admin</span>

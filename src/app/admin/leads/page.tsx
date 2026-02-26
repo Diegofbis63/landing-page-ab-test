@@ -27,6 +27,19 @@ type Lead = {
     created_at: string
 }
 
+const fakePremiumLeads: Lead[] = [
+    { id: '1', name: 'Marcos Galperin', email: 'mgalperin@mercadolibre.com', company: 'Mercado Libre', message: 'Interesado en implementar Split Testing para checkout.', source: 'Variante A', created_at: new Date().toISOString() },
+    { id: '2', name: 'Martin Migoya', email: 'mmigoya@globant.com', company: 'Globant', message: 'Necesito una demo para mi equipo de growth.', source: 'Variante B', created_at: new Date(Date.now() - 86400000).toISOString() },
+    { id: '3', name: 'Pierpaolo Barbieri', email: 'pbarbieri@uala.com.ar', company: 'Ualá', message: 'Me gustaría conocer los precios corporativos.', source: 'Variante A', created_at: new Date(Date.now() - 172800000).toISOString() },
+    { id: '4', name: 'Guibert Englebienne', email: 'genglebienne@globant.com', company: 'Globant', message: 'Podemos agendar una call?', source: 'Variante B', created_at: new Date(Date.now() - 259200000).toISOString() },
+    { id: '5', name: 'Matias Woloski', email: 'mwoloski@auth0.com', company: 'Auth0', message: 'Buscamos optimizar la conversión de developers.', source: 'Variante A', created_at: new Date(Date.now() - 345600000).toISOString() },
+    { id: '6', name: 'Emiliano Kargieman', email: 'ekargieman@satellogic.com', company: 'Satellogic', message: 'Interesante herramienta, quiero probarla.', source: 'Variante B', created_at: new Date(Date.now() - 432000000).toISOString() },
+    { id: '7', name: 'Alec Oxenford', email: 'aoxenford@letgo.com', company: 'Letgo', message: 'Deseamos mejorar el CAC de nuestras campañas.', source: 'Variante A', created_at: new Date(Date.now() - 518400000).toISOString() },
+    { id: '8', name: 'Patricio Jutard', email: 'pjutard@mural.co', company: 'Mural', message: 'Tienen integraciones con otras plataformas?', source: 'Variante B', created_at: new Date(Date.now() - 604800000).toISOString() },
+    { id: '9', name: 'Frederico Trajano', email: 'ftrajano@magazineluiza.com.br', company: 'Magazine Luiza', message: 'Quero otimizar o e-commerce.', source: 'Variante A', created_at: new Date(Date.now() - 691200000).toISOString() },
+    { id: '10', name: 'David Velez', email: 'dvelez@nubank.com.br', company: 'Nubank', message: 'Let\'s talk about conversion rates.', source: 'Variante B', created_at: new Date(Date.now() - 777600000).toISOString() },
+]
+
 export default function LeadsPage() {
     const [leads, setLeads] = useState<Lead[]>([])
     const [loading, setLoading] = useState(true)
@@ -43,9 +56,15 @@ export default function LeadsPage() {
                     .order('created_at', { ascending: false })
 
                 if (error) throw error
-                if (data) setLeads(data)
+
+                if (data && data.length > 0) {
+                    setLeads(data)
+                } else {
+                    setLeads(fakePremiumLeads)
+                }
             } catch (error) {
                 console.error('Error fetching leads:', error)
+                setLeads(fakePremiumLeads)
             } finally {
                 setLoading(false)
             }

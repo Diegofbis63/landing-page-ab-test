@@ -151,10 +151,10 @@ export default function DashboardPage() {
                                         />
                                         <Legend wrapperStyle={{ paddingTop: '20px' }} />
                                         {(activeFilter === 'ALL' || activeFilter === 'A') && (
-                                            <Bar dataKey="Variante A" fill="#818cf8" radius={[4, 4, 0, 0]} maxBarSize={50} />
+                                            <Bar dataKey="Variante A" fill="#34d399" radius={[4, 4, 0, 0]} maxBarSize={50} />
                                         )}
                                         {(activeFilter === 'ALL' || activeFilter === 'B') && (
-                                            <Bar dataKey="Variante B" fill="#34d399" radius={[4, 4, 0, 0]} maxBarSize={50} />
+                                            <Bar dataKey="Variante B" fill="#6366f1" radius={[4, 4, 0, 0]} maxBarSize={50} />
                                         )}
                                     </BarChart>
                                 </ResponsiveContainer>

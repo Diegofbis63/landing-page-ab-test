@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { format } from 'date-fns'
-import { Download, Search, Loader2 } from 'lucide-react'
+import { Download, Search, Loader2, ChevronLeft, ChevronRight } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import {
     Table,
@@ -31,6 +31,8 @@ export default function LeadsPage() {
     const [leads, setLeads] = useState<Lead[]>([])
     const [loading, setLoading] = useState(true)
     const [searchTerm, setSearchTerm] = useState('')
+    const [currentPage, setCurrentPage] = useState(1)
+    const itemsPerPage = 10
 
     useEffect(() => {
         async function fetchLeads() {
@@ -57,6 +59,13 @@ export default function LeadsPage() {
         lead.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
         (lead.company && lead.company.toLowerCase().includes(searchTerm.toLowerCase()))
     )
+
+    const totalPages = Math.ceil(filteredLeads.length / itemsPerPage)
+    const paginatedLeads = filteredLeads.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+
+    useEffect(() => {
+        setCurrentPage(1)
+    }, [searchTerm])
 
     return (
         <div className="space-y-6">
@@ -123,7 +132,7 @@ export default function LeadsPage() {
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
-                                    {filteredLeads.map((lead) => (
+                                    {paginatedLeads.map((lead) => (
                                         <TableRow
                                             key={lead.id}
                                             className="border-white/5 hover:bg-white/5 transition-colors group cursor-default"
@@ -171,6 +180,38 @@ export default function LeadsPage() {
                             </Table>
                         )}
                     </div>
+
+                    {/* Pagination Controls */}
+                    {!loading && filteredLeads.length > itemsPerPage && (
+                        <div className="p-4 border-t border-white/5 flex items-center justify-between">
+                            <div className="text-sm text-slate-400">
+                                Mostrando <span className="text-white font-medium">{(currentPage - 1) * itemsPerPage + 1}</span> a <span className="text-white font-medium">{Math.min(currentPage * itemsPerPage, filteredLeads.length)}</span> de <span className="text-white font-medium">{filteredLeads.length}</span> resultados
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                                    disabled={currentPage === 1}
+                                    className="h-8 w-8 p-0 bg-transparent border-white/10 text-white hover:bg-white/10"
+                                >
+                                    <ChevronLeft className="h-4 w-4" />
+                                </Button>
+                                <div className="text-sm font-medium text-slate-300 px-2">
+                                    Página {currentPage} de {totalPages}
+                                </div>
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                                    disabled={currentPage === totalPages}
+                                    className="h-8 w-8 p-0 bg-transparent border-white/10 text-white hover:bg-white/10"
+                                >
+                                    <ChevronRight className="h-4 w-4" />
+                                </Button>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </motion.div>
         </div>

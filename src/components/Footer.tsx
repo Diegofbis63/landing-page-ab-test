@@ -47,7 +47,7 @@ export function Footer() {
               </a>
               <div className="flex items-center gap-2">
                 <Mail className="h-4 w-4" />
-                <span>diegofbisquerra@gmail.com</span>
+                <span>admin@abengine.com</span>
               </div>
               <a href="/login" className="flex items-center gap-2 text-indigo-400 hover:text-indigo-300 transition-colors font-medium">
                 <Globe className="h-4 w-4" />

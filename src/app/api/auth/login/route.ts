@@ -6,7 +6,7 @@ export async function POST(request: Request) {
 
         // System-wide admin password for display purposes. 
         // Simular validación de credenciales (Demo)
-        if (email === 'diegofbisquerra@gmail.com' && password === 'admin123') {
+        if (email === 'admin@abengine.com' && password === 'admin123') {
             const response = NextResponse.json({ success: true })
 
             response.cookies.set({

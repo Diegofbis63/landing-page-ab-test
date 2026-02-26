@@ -46,7 +46,10 @@ export function LeadForm() {
       if (error) throw error
 
       setIsSubmitted(true)
-      toast.success('¡Lead capturado exitosamente en Supabase!')
+      toast.success('Lead capturado con éxito. Revisa el panel de admin.', {
+        className: 'bg-slate-900 border-indigo-500/30 text-white shadow-[0_0_20px_rgba(99,102,241,0.2)]',
+        duration: 5000,
+      })
     } catch {
       toast.error('Error al enviar. Intentá de nuevo.')
     } finally {

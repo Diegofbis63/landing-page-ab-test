@@ -113,32 +113,38 @@ function LoginForm() {
                             </div>
                         </div>
 
-                        <div className="space-y-3">
+                        <div className="space-y-4 pt-2">
+                            <Button
+                                type="button"
+                                onClick={handleLogin}
+                                className="w-full h-14 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white font-bold tracking-wide shadow-[0_0_30px_rgba(99,102,241,0.4)] transition-all hover:shadow-[0_0_40px_rgba(99,102,241,0.6)] hover:scale-[1.02] group"
+                                disabled={isLoading}
+                            >
+                                <span className="flex items-center gap-2 text-lg">
+                                    <Sparkles className="w-5 h-5 text-indigo-200 group-hover:text-white group-hover:scale-110 transition-all" />
+                                    Ingresar rápido como Admin Demo
+                                </span>
+                            </Button>
+
+                            <div className="relative flex items-center py-2">
+                                <div className="flex-grow border-t border-white/5"></div>
+                                <span className="flex-shrink-0 mx-4 text-xs font-medium text-slate-500 uppercase tracking-widest">O ingreso manual</span>
+                                <div className="flex-grow border-t border-white/5"></div>
+                            </div>
+
                             <Button
                                 type="submit"
-                                className="w-full h-12 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white font-medium tracking-wide shadow-[0_0_20px_rgba(99,102,241,0.3)] transition-all hover:shadow-[0_0_25px_rgba(99,102,241,0.5)] group"
+                                variant="outline"
+                                className="w-full h-12 rounded-xl bg-transparent hover:bg-white/5 border-white/10 text-slate-300 font-medium tracking-wide transition-all group"
                                 disabled={isLoading}
                             >
                                 {isLoading ? (
                                     <Loader2 className="w-5 h-5 animate-spin" />
                                 ) : (
                                     <span className="flex items-center gap-2">
-                                        Authenticate <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                        Authenticate <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform opacity-70" />
                                     </span>
                                 )}
-                            </Button>
-
-                            <Button
-                                type="button"
-                                onClick={handleLogin}
-                                variant="outline"
-                                className="w-full h-12 rounded-xl bg-indigo-500/5 hover:bg-indigo-500/10 border-indigo-500/20 text-indigo-300 font-medium tracking-wide transition-all group"
-                                disabled={isLoading}
-                            >
-                                <span className="flex items-center gap-2">
-                                    <Sparkles className="w-4 h-4 text-indigo-400 group-hover:text-indigo-300 group-hover:scale-110 transition-all" />
-                                    Ingresar rápido como Admin Demo
-                                </span>
                             </Button>
                         </div>
                     </form>

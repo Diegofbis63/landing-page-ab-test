@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
-import { ArrowRight, SplitSquareVertical, BarChart3, TrendingUp, Sparkles, FlaskConical, Lock } from 'lucide-react'
+import { ArrowRight, SplitSquareVertical, BarChart3, TrendingUp, Sparkles, FlaskConical, Lock, LayoutDashboard } from 'lucide-react'
 import { track } from '@vercel/analytics'
 import Link from 'next/link'
 
@@ -33,16 +33,6 @@ export function Hero() {
 
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center pt-32 pb-20 overflow-hidden bg-background">
-      {/* Top Navigation for Admin Access */}
-      <div className="absolute top-0 w-full p-6 flex justify-end z-50">
-        <Link href="/login">
-          <Button variant="ghost" className="text-slate-400 hover:text-white font-medium gap-2">
-            <Lock className="w-4 h-4" />
-            Admin Demo
-          </Button>
-        </Link>
-      </div>
-
       {/* Dynamic Background */}
       <div className="absolute inset-0 z-0 opacity-30">
         <div className="absolute top-[10%] left-[10%] w-[40%] h-[40%] bg-primary/20 blur-[120px] rounded-full animate-pulse" />
@@ -120,6 +110,19 @@ export function Hero() {
                   Cómo Funciona
                 </Button>
               </motion.div>
+
+              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                <Link href="/login">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="bg-indigo-500/10 border-indigo-500/30 text-indigo-300 hover:bg-indigo-500/20 font-black uppercase tracking-widest text-sm px-10 py-7 rounded-2xl transition-all w-full sm:w-auto flex items-center gap-2"
+                  >
+                    <LayoutDashboard className="h-4 w-4" />
+                    Ver Panel en Vivo
+                  </Button>
+                </Link>
+              </motion.div>
             </div>
 
             <div className="flex flex-wrap gap-x-10 gap-y-6 pt-4 border-t border-white/5">
@@ -196,6 +199,21 @@ export function Hero() {
           </motion.div>
         </div>
       </div>
+
+      {/* Floating Action Button */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 1 }}
+        className="fixed bottom-8 right-8 z-50 hidden sm:block"
+      >
+        <Link href="/login">
+          <Button className="rounded-full h-14 px-6 shadow-[0_0_30px_rgba(99,102,241,0.4)] bg-slate-900 border border-indigo-500/30 text-indigo-300 hover:bg-slate-800 hover:text-indigo-200 hover:scale-105 transition-all flex items-center gap-2 group">
+            <Lock className="w-4 h-4 group-hover:text-indigo-400" />
+            <span className="font-bold tracking-wide">Probar Demo Admin</span>
+          </Button>
+        </Link>
+      </motion.div>
     </section>
   )
 }

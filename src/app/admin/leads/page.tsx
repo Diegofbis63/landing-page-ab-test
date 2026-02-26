@@ -111,7 +111,7 @@ export default function LeadsPage() {
                                 <p className="font-medium">No leads found matching your criteria.</p>
                             </div>
                         ) : (
-                            <Table>
+                            <Table className="min-w-[800px]">
                                 <TableHeader className="bg-slate-950/80 sticky top-0 z-10">
                                     <TableRow className="border-white/5 hover:bg-transparent">
                                         <TableHead className="text-slate-400 font-medium py-4 px-6">Contact Info</TableHead>

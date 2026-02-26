@@ -85,41 +85,29 @@ export function Hero() {
               </span>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-6">
-              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+            <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row flex-wrap gap-4 max-w-2xl">
+              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="flex-1 min-w-[200px]">
                 <Button
                   size="lg"
-                  className={`font-black uppercase tracking-widest text-sm px-10 py-7 rounded-2xl shadow-2xl transition-all w-full sm:w-auto ${variant === 'A'
+                  className={`font-black uppercase tracking-widest text-xs sm:text-sm px-6 py-6 sm:py-7 rounded-2xl shadow-[0_0_30px_rgba(255,255,255,0.1)] transition-all w-full flex items-center justify-center gap-2 ${variant === 'A'
                     ? 'bg-white text-black hover:bg-slate-200'
                     : 'bg-primary text-white hover:bg-primary/90'
                     }`}
                   onClick={handleCTAClick}
                 >
-                  {variant === 'A' ? 'Probar Motor A/B' : 'Empezar Split Test'}
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                  <FlaskConical className="w-4 h-4 shrink-0" />
+                  <span className="truncate">{variant === 'A' ? 'Probar Motor A/B' : 'Empezar Split Test'}</span>
                 </Button>
               </motion.div>
 
-              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="bg-transparent border-white/10 text-white hover:bg-white/[0.03] font-black uppercase tracking-widest text-sm px-10 py-7 rounded-2xl transition-all w-full sm:w-auto"
-                  onClick={() => document.getElementById('benefits')?.scrollIntoView({ behavior: 'smooth' })}
-                >
-                  Cómo Funciona
-                </Button>
-              </motion.div>
-
-              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                <Link href="/login">
+              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="flex-1 min-w-[200px]">
+                <Link href="/login" className="block w-full">
                   <Button
                     size="lg"
-                    variant="outline"
-                    className="bg-indigo-500/10 border-indigo-500/30 text-indigo-300 hover:bg-indigo-500/20 font-black uppercase tracking-widest text-sm px-10 py-7 rounded-2xl transition-all w-full sm:w-auto flex items-center gap-2"
+                    className="bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 hover:bg-indigo-500/20 font-black uppercase tracking-widest text-xs sm:text-sm px-6 py-6 sm:py-7 rounded-2xl transition-all w-full flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(99,102,241,0.1)]"
                   >
-                    <LayoutDashboard className="h-4 w-4" />
-                    Ver Panel en Vivo
+                    <LayoutDashboard className="h-4 w-4 text-indigo-400 shrink-0" />
+                    <span className="truncate">Ver Panel Admin</span>
                   </Button>
                 </Link>
               </motion.div>
@@ -200,20 +188,6 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Floating Action Button */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 1 }}
-        className="fixed bottom-8 right-8 z-50 hidden sm:block"
-      >
-        <Link href="/login">
-          <Button className="rounded-full h-14 px-6 shadow-[0_0_30px_rgba(99,102,241,0.4)] bg-slate-900 border border-indigo-500/30 text-indigo-300 hover:bg-slate-800 hover:text-indigo-200 hover:scale-105 transition-all flex items-center gap-2 group">
-            <Lock className="w-4 h-4 group-hover:text-indigo-400" />
-            <span className="font-bold tracking-wide">Probar Demo Admin</span>
-          </Button>
-        </Link>
-      </motion.div>
     </section>
   )
 }

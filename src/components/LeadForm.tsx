@@ -8,9 +8,10 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { Badge } from '@/components/ui/badge'
-import { Send, CheckCircle, FlaskConical, BarChart3, Database, ArrowRight } from 'lucide-react'
+import { Send, CheckCircle, FlaskConical, BarChart3, Database, ArrowRight, LayoutDashboard } from 'lucide-react'
 import { createClient } from '@supabase/supabase-js'
 import { toast } from 'sonner'
+import Link from 'next/link'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL ?? '',
@@ -20,6 +21,7 @@ const supabase = createClient(
 export function LeadForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [capturedVariant, setCapturedVariant] = useState('A')
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -29,9 +31,28 @@ export function LeadForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    if (!formData.name.trim() || !formData.email.trim()) {
+      toast.error('Los campos Nombre y Email son obligatorios.', {
+        className: 'bg-rose-950/80 backdrop-blur-md border-rose-500/30 text-rose-400 shadow-[0_0_20px_rgba(225,29,72,0.2)]',
+      })
+      return
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(formData.email)) {
+      toast.error('El formato del email no es válido.', {
+        className: 'bg-rose-950/80 backdrop-blur-md border-rose-500/30 text-rose-400 shadow-[0_0_20px_rgba(225,29,72,0.2)]',
+      })
+      return
+    }
+
     setIsSubmitting(true)
 
     try {
+      const activeVariant = Math.random() > 0.5 ? 'Variante A' : 'Variante B'
+      setCapturedVariant(activeVariant.replace('Variante ', ''))
+
       const { error } = await supabase
         .from('leads')
         .insert([{
@@ -39,7 +60,7 @@ export function LeadForm() {
           email: formData.email,
           company: formData.company,
           message: formData.message,
-          source: 'ab-engine-landing',
+          source: activeVariant,
           created_at: new Date().toISOString()
         }])
 
@@ -118,23 +139,33 @@ export function LeadForm() {
                 {isSubmitted ? (
                   <motion.div
                     key="success"
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
+                    initial={{ opacity: 0, scale: 0.9, y: 10 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 1.1 }}
-                    className="p-12 text-center space-y-6"
+                    className="p-12 text-center space-y-8 flex flex-col items-center justify-center min-h-[400px]"
                   >
-                    <div className="w-20 h-20 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center mx-auto">
-                      <CheckCircle className="h-10 w-10 text-accent" />
-                    </div>
-                    <div className="space-y-3">
-                      <h3 className="text-2xl font-black text-white">¡Lead capturado!</h3>
-                      <p className="text-slate-400 max-w-sm mx-auto">
-                        Tu envío se guardó en Supabase. Podés verificarlo en el dashboard del proyecto.
+                    <motion.div
+                      initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: 'spring', bounce: 0.5, delay: 0.2 }}
+                      className="w-24 h-24 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center mx-auto shadow-[0_0_40px_rgba(16,185,129,0.2)]"
+                    >
+                      <CheckCircle className="h-12 w-12 text-emerald-400" />
+                    </motion.div>
+
+                    <div className="space-y-4">
+                      <h3 className="text-3xl font-black text-white leading-tight">
+                        ¡Lead capturado exitosamente<br />en la Variante A!
+                      </h3>
+                      <p className="text-slate-400 text-lg max-w-sm mx-auto font-medium">
+                        Haz clic aquí para ver cómo impactó en las analíticas en tiempo real.
                       </p>
                     </div>
-                    <Badge variant="outline" className="text-xs font-bold border-accent/30 text-accent">
-                      Variante {/* variant tracking */} • Supabase ✓
-                    </Badge>
+
+                    <Link href="/login" className="w-full max-w-xs mt-4 block">
+                      <Button className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-black uppercase tracking-widest h-14 rounded-2xl shadow-[0_0_30px_rgba(99,102,241,0.5)] hover:shadow-[0_0_50px_rgba(99,102,241,0.7)] transition-all flex items-center justify-center gap-2 group">
+                        <LayoutDashboard className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                        Ver Panel en Vivo
+                      </Button>
+                    </Link>
                   </motion.div>
                 ) : (
                   <motion.div
@@ -207,8 +238,8 @@ export function LeadForm() {
                           className="w-full bg-white text-black hover:bg-slate-200 font-black uppercase tracking-widest text-sm py-7 rounded-2xl shadow-2xl transition-all"
                           disabled={isSubmitting}
                         >
-                          {isSubmitting ? 'Guardando en Supabase...' : 'Enviar Lead de Prueba'}
-                          <ArrowRight className="ml-2 h-4 w-4" />
+                          {isSubmitting ? 'Cargando...' : 'Enviar Lead de Prueba'}
+                          {!isSubmitting && <ArrowRight className="ml-2 h-4 w-4" />}
                         </Button>
                       </form>
                     </CardContent>

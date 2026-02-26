@@ -23,6 +23,7 @@ type Lead = {
     email: string
     company: string | null
     message: string | null
+    source: string | null
     created_at: string
 }
 
@@ -117,6 +118,7 @@ export default function LeadsPage() {
                                         <TableHead className="text-slate-400 font-medium py-4 px-6">Contact Info</TableHead>
                                         <TableHead className="text-slate-400 font-medium py-4 px-6">Company</TableHead>
                                         <TableHead className="text-slate-400 font-medium py-4 px-6 w-[350px]">Message</TableHead>
+                                        <TableHead className="text-slate-400 font-medium py-4 px-6">Variante</TableHead>
                                         <TableHead className="text-slate-400 font-medium py-4 px-6 text-right">Captured At</TableHead>
                                     </TableRow>
                                 </TableHeader>
@@ -148,6 +150,15 @@ export default function LeadsPage() {
                                                     </p>
                                                 ) : (
                                                     <span className="text-slate-600 italic text-sm">No message</span>
+                                                )}
+                                            </TableCell>
+                                            <TableCell className="py-4 px-6">
+                                                {lead.source && lead.source.includes('Variante A') ? (
+                                                    <Badge className="bg-indigo-500/20 text-indigo-300 hover:bg-indigo-500/30 border-indigo-500/50">Variante A</Badge>
+                                                ) : lead.source && lead.source.includes('Variante B') ? (
+                                                    <Badge className="bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 border-emerald-500/50">Variante B</Badge>
+                                                ) : (
+                                                    <Badge variant="outline" className="text-slate-500 border-white/10 bg-white/5">Orgánico</Badge>
                                                 )}
                                             </TableCell>
                                             <TableCell className="py-4 px-6 text-right text-slate-400 text-sm font-medium">
